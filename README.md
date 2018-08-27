@@ -69,12 +69,11 @@ Completing these notebooks require:
 ## RISC-V-Demo Notebooks
 
 The RISC-V Demonstration notebooks show examples of existing processor
-overlays. We provide three example overlays using processors from two
+overlays. We provide two example overlays using processors from one
 RISC-V Processor Projects.
 
 - RISC-V [PicoRV32](https://github.com/cliffordwolf/picorv32) AXI Demo
 - RISC-V [PicoRV32](https://github.com/cliffordwolf/picorv32) BRAM Demo
-- RISC-V [Orca](https://github.com/VectorBlox/orca) AXI Demo
 
 Each notebook demonstrates how to upload programs using the Jupyter
 Notebook Magics we have provided. Each processor has a set of build
