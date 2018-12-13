@@ -32,23 +32,5 @@
 # USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH
 # DAMAGE.
 # ----------------------------------------------------------------------
-TARGETS=sweep synth single
-all: single
-
-clean:
-	$(foreach IP,$(IPS), PART=$(PART) $(MAKE) -C $(IP_PATH)/$(IP) clean;)
-	rm -rf NA
-	rm -rf $(DESIGN) *.jou *.log
-
-ip:
-	$(foreach IP,$(IPS), PART=$(PART) $(MAKE) -C $(IP_PATH)/$(IP);)
-
-.PHONY: $(DESIGN)
-
-$(TARGETS): $(DESIGN) ip $(BUILD_PATH)/$(BOARD).xdc $(DESIGN).tcl
-	vivado -mode batch -source $(BUILD_PATH)/build.tcl -tclargs $(DESIGN) \
-		$@ $(PART) $(BOARD) $(IP_PATH)
-
-results:
-	grep Slack vivado.log > sweep.log
-	vivado -mode batch $(DESIGN)/$(DESIGN).xpr -source $(BUILD_PATH)/resources.tcl -tclargs $(DESIGN) 
+from . import build
+from . import orca
