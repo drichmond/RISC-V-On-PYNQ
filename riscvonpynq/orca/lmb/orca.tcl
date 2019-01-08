@@ -50,6 +50,8 @@ xilinx.com:ip:processing_system7:5.5\
 xilinx.com:ip:axi_intc:4.1\
 xilinx.com:ip:xlslice:1.0\
 xilinx.com:ip:clk_wiz:5.4\
+xilinx.com:ip:lmb_bram_if_cntlr:4.0\
+xilinx.com:user:orca:1.0\
 xilinx.com:ip:axi_bram_ctrl:4.0\
 xilinx.com:ip:blk_mem_gen:8.4\
 "
@@ -126,6 +128,15 @@ proc create_hier_cell_tutorialProcessor { parentCell nameHier } {
   create_bd_pin -dir I -type clk s_axi_aclk
   create_bd_pin -dir I -type rst s_axi_aresetn
 
+  # Create instance: lmb_bram_if_cntlr_0, and set properties
+  set lmb_bram_if_cntlr_0 [ create_bd_cell -type ip -vlnv xilinx.com:ip:lmb_bram_if_cntlr:4.0 lmb_bram_if_cntlr_0 ]
+  set_property -dict [ list \
+   CONFIG.C_NUM_LMB {2} \
+ ] $lmb_bram_if_cntlr_0
+
+  # Create instance: orca_0, and set properties
+  set orca_0 [ create_bd_cell -type ip -vlnv xilinx.com:user:orca:1.0 orca_0 ]
+
   # Create instance: psBramController, and set properties
   set psBramController [ create_bd_cell -type ip -vlnv xilinx.com:ip:axi_bram_ctrl:4.0 psBramController ]
   set_property -dict [ list \
@@ -154,14 +165,6 @@ proc create_hier_cell_tutorialProcessor { parentCell nameHier } {
    CONFIG.use_bram_block {BRAM_Controller} \
  ] $riscvBram
 
-  # Create instance: riscvBramController, and set properties
-  set riscvBramController [ create_bd_cell -type ip -vlnv xilinx.com:ip:axi_bram_ctrl:4.0 riscvBramController ]
-  set_property -dict [ list \
-   CONFIG.ECC_TYPE {0} \
-   CONFIG.PROTOCOL {AXI4LITE} \
-   CONFIG.SINGLE_PORT_BRAM {1} \
- ] $riscvBramController
-
   # Create instance: riscvReset, and set properties
   set riscvReset [ create_bd_cell -type ip -vlnv xilinx.com:ip:proc_sys_reset:5.0 riscvReset ]
   set_property -dict [ list \
@@ -171,16 +174,18 @@ proc create_hier_cell_tutorialProcessor { parentCell nameHier } {
 
   # Create interface connections
   connect_bd_intf_net -intf_net Conn2 [get_bd_intf_pins S_AXI_MEM] [get_bd_intf_pins psBramController/S_AXI]
+  connect_bd_intf_net -intf_net lmb_bram_if_cntlr_0_BRAM_PORT [get_bd_intf_pins lmb_bram_if_cntlr_0/BRAM_PORT] [get_bd_intf_pins riscvBram/BRAM_PORTA]
+  connect_bd_intf_net -intf_net orca_0_DLMB [get_bd_intf_pins lmb_bram_if_cntlr_0/SLMB1] [get_bd_intf_pins orca_0/DLMB]
+  connect_bd_intf_net -intf_net orca_0_ILMB [get_bd_intf_pins lmb_bram_if_cntlr_0/SLMB] [get_bd_intf_pins orca_0/ILMB]
   connect_bd_intf_net -intf_net psBramController_BRAM_PORTA [get_bd_intf_pins psBramController/BRAM_PORTA] [get_bd_intf_pins riscvBram/BRAM_PORTB]
-  connect_bd_intf_net -intf_net riscvBramController_BRAM_PORTA [get_bd_intf_pins riscvBram/BRAM_PORTA] [get_bd_intf_pins riscvBramController/BRAM_PORTA]
 
   # Create port connections
   connect_bd_net -net aux_reset_in_1 [get_bd_pins riscv_resetn] [get_bd_pins riscvReset/aux_reset_in]
   connect_bd_net -net clk_in1_1 [get_bd_pins s_axi_aclk] [get_bd_pins psBramController/s_axi_aclk]
   connect_bd_net -net ext_reset_in_1 [get_bd_pins por_resetn] [get_bd_pins riscvReset/ext_reset_in]
-  connect_bd_net -net riscvReset_peripheral_aresetn [get_bd_pins riscvBramController/s_axi_aresetn] [get_bd_pins riscvReset/peripheral_aresetn]
+  connect_bd_net -net riscvReset_peripheral_reset [get_bd_pins lmb_bram_if_cntlr_0/LMB_Rst] [get_bd_pins orca_0/reset] [get_bd_pins riscvReset/peripheral_reset]
   connect_bd_net -net s_axi_aresetn_1 [get_bd_pins s_axi_aresetn] [get_bd_pins psBramController/s_axi_aresetn]
-  connect_bd_net -net subprocessorClk [get_bd_pins riscv_clk] [get_bd_pins riscvBramController/s_axi_aclk] [get_bd_pins riscvReset/slowest_sync_clk]
+  connect_bd_net -net subprocessorClk [get_bd_pins riscv_clk] [get_bd_pins lmb_bram_if_cntlr_0/LMB_Clk] [get_bd_pins orca_0/clk] [get_bd_pins riscvReset/slowest_sync_clk]
 
   # Restore current instance
   current_bd_instance $oldCurInst
@@ -1178,6 +1183,8 @@ proc create_root_design { parentCell } {
   create_bd_addr_seg -range 0x00010000 -offset 0x40010000 [get_bd_addr_spaces processing_system7_0/Data] [get_bd_addr_segs tutorialProcessor/psBramController/S_AXI/Mem0] SEG_psBramController_Mem0
   create_bd_addr_seg -range 0x00010000 -offset 0x40020000 [get_bd_addr_spaces processing_system7_0/Data] [get_bd_addr_segs psInterruptController/S_AXI/Reg] SEG_psInterruptController_Reg
   create_bd_addr_seg -range 0x00001000 -offset 0x40001000 [get_bd_addr_spaces processing_system7_0/Data] [get_bd_addr_segs subprocessorClk/s_axi_lite/Reg] SEG_subprocessorClk_Reg
+  create_bd_addr_seg -range 0x00010000 -offset 0x00000000 [get_bd_addr_spaces tutorialProcessor/orca_0/DLMB] [get_bd_addr_segs tutorialProcessor/lmb_bram_if_cntlr_0/SLMB1/Mem] SEG_lmb_bram_if_cntlr_0_Mem
+  create_bd_addr_seg -range 0x00010000 -offset 0x00000000 [get_bd_addr_spaces tutorialProcessor/orca_0/ILMB] [get_bd_addr_segs tutorialProcessor/lmb_bram_if_cntlr_0/SLMB/Mem] SEG_lmb_bram_if_cntlr_0_Mem
 
 
   # Restore current instance
