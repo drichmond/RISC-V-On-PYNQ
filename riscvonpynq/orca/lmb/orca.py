@@ -39,7 +39,7 @@ class TutorialProcessor(BramProcessor):
 
     """
     _name = 'tutorialProcessor'
-    _proc = 'picorv32'
+    _proc = 'orca'
     _bits = 32
     @classmethod
     def checkhierarchy(cls, description):
