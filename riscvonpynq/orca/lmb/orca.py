@@ -73,7 +73,7 @@ class Processor(MixedProcessor):
 
     """
     _name = 'tutorialProcessor'
-    _proc = 'orca_0'
+    _proc = 'tutorial'
     _bits = 32
 
     @classmethod
