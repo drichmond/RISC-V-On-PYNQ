@@ -37,6 +37,7 @@ all: single
 
 clean:
 	$(foreach IP,$(IPS), PART=$(PART) $(MAKE) -C $(IP_PATH)/$(IP) clean;)
+	rm -rf NA
 	rm -rf $(DESIGN) *.jou *.log
 
 ip:
