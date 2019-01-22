@@ -31,15 +31,16 @@ class Processor(LmbProcessor):
 
     Subclasses of this module are responsible for setting _name (The
     name of the Hierarchy), _bits (Processor bit-width), _proc
-    (Processor Type Name)
+    (Processor Type Name, must match name of the linker script file
+    (.ld) in the build directory)
 
     This class must be placed in a known location relative to the
     build files for this processor. The relative path can be modified
     in __get_path.
 
     """
-    _name = 'orcaLmbProcessor' # Must match hierarchy name!
-    _proc = 'orca' # Must match processor name
+    _name = 'orcaLmbProcessor'
+    _proc = 'orca'
     _bits = 32
     @classmethod
     def checkhierarchy(cls, description):

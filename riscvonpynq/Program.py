@@ -109,7 +109,7 @@ class Program:
         """
         bin_path = os.path.join(self.__path, self.__bin_name)
         make_args = ['make', "-C", proc.build_path, bin_path,
-                     f'STKPTR={proc.stkptr}']
+                     f'STKPTR={proc.stkptr}', f'PROCESSOR={proc.proc}']
         result = run(make_args, stdout=PIPE, stderr=PIPE)
         if result.returncode:
             raise RuntimeError(result.stderr.decode())

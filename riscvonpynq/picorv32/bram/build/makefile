@@ -1,4 +1,5 @@
-STKPTR ?= 0x8000
+STKPTR ?= 0x10000
+PROCESSOR ?= picorv32
 all: $(TARGET).bin
 
 init.o: init.S
@@ -9,7 +10,7 @@ init.o: init.S
 %.elf: init.o %.o 
 	@echo "Combining object files $< to produce $@"
 	riscv32-unknown-elf-gcc -Os -ffreestanding -nostdlib -o $@ \
-		-Wl,-Bstatic,-T,picorv32.ld \
+		-Wl,-Bstatic,-T,$(PROCESSOR).ld \
 		$^ -lgcc -march=rv32im 
 
 %.o: %.c 
