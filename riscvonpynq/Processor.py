@@ -401,8 +401,8 @@ class MixedProcessor(Processor):
         return (argv_buf, argv_ptr, arg_bufs, arg_ptrs)
 
 class BramProcessor(Processor):
-    """Subclass Hierarchy driver for RISC-V Processors with mixed DDR/BRAM
-    memory spaces
+    """Subclass Hierarchy driver for RISC-V Processors with BRAM memory
+    spaces
 
     Facilitates loading user programs on to RISC-V Processors.
 
@@ -464,7 +464,7 @@ class BramProcessor(Processor):
         return (ptr, buf)
 
     def _alloc_args(self, args):
-        """Allocate space in the BRAMN to hold any user-provided arguments.
+        """Allocate space in the BRAM to hold any user-provided arguments.
 
         Parameters
         ----------
@@ -481,3 +481,11 @@ class BramProcessor(Processor):
         argv_buf[:] = arg_ptrs
         return (argv_buf, argv_ptr, arg_bufs, arg_ptrs)
 
+class LmbProcessor(BramProcessor):
+    """Subclass Hierarchy driver for RISC-V Processors with mixed BRAM
+    memory spaces
+
+    Facilitates loading user programs on to RISC-V Processors.
+
+    """
+    pass
