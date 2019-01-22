@@ -1,3 +1,9 @@
 [submodule "picorv32"]
 	path = picorv32
 	url = https://github.com/cliffordwolf/picorv32
+[submodule "master"]
+	path = master
+	url = https://github.com/VectorBlox/orca.git
+[submodule "orca"]
+	path = orca
+	url = https://github.com/VectorBlox/orca.git
