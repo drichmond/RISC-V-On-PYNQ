@@ -50,14 +50,10 @@ xilinx.com:ip:processing_system7:5.5\
 xilinx.com:ip:axi_intc:4.1\
 xilinx.com:ip:xlslice:1.0\
 xilinx.com:ip:clk_wiz:5.4\
-xilinx.com:ip:lmb_bram_if_cntlr:4.0\
 vectorblox.com:user:orca:1.0\
 xilinx.com:ip:axi_bram_ctrl:4.0\
 xilinx.com:ip:blk_mem_gen:8.4\
-<<<<<<< HEAD
-=======
 xilinx.com:ip:lmb_bram_if_cntlr:4.0\
->>>>>>> 429bdb2... Added Software IRQ
 "
 
    set list_ips_missing ""
@@ -127,32 +123,40 @@ proc create_hier_cell_orcaLmbProcessor { parentCell nameHier } {
 
   # Create pins
   create_bd_pin -dir O irq
-<<<<<<< HEAD
-=======
   create_bd_pin -dir O m_axi_duc_aclk
   create_bd_pin -dir O -from 0 -to 0 m_axi_duc_aresetn
->>>>>>> 429bdb2... Added Software IRQ
   create_bd_pin -dir I -type rst por_resetn
   create_bd_pin -dir I -type clk riscv_clk
   create_bd_pin -dir I -type rst riscv_resetn
   create_bd_pin -dir I -type clk s_axi_aclk
   create_bd_pin -dir I -type rst s_axi_aresetn
 
-  # Create instance: lmb_bram_if_cntlr_0, and set properties
-  set lmb_bram_if_cntlr_0 [ create_bd_cell -type ip -vlnv xilinx.com:ip:lmb_bram_if_cntlr:4.0 lmb_bram_if_cntlr_0 ]
-  set_property -dict [ list \
-   CONFIG.C_NUM_LMB {2} \
- ] $lmb_bram_if_cntlr_0
-
   # Create instance: orca, and set properties
   set orca [ create_bd_cell -type ip -vlnv vectorblox.com:user:orca:1.0 orca ]
   set_property -dict [ list \
+   CONFIG.AMR0_ADDR_LAST {0x7FFFFFFF} \
+   CONFIG.AMR0_READ_ONLY {0} \
    CONFIG.AUX_MEMORY_REGIONS {1} \
    CONFIG.DC_REQUEST_REGISTER {1} \
    CONFIG.IC_REQUEST_REGISTER {1} \
    CONFIG.INSTRUCTION_REQUEST_REGISTER {1} \
-   CONFIG.UC_MEMORY_REGIONS {0} \
+   CONFIG.UC_MEMORY_REGIONS {1} \
+   CONFIG.UMR0_ADDR_BASE {0x10000000} \
+   CONFIG.UMR0_ADDR_LAST {0xFFFFFFFF} \
+   CONFIG.UMR0_READ_ONLY {0} \
  ] $orca
+
+  set_property -dict [ list \
+   CONFIG.SUPPORTS_NARROW_BURST {0} \
+   CONFIG.MAX_BURST_LENGTH {1} \
+ ] [get_bd_intf_pins /orcaLmbProcessor/orca/DUC]
+
+  set_property -dict [ list \
+   CONFIG.HAS_BRESP {0} \
+   CONFIG.SUPPORTS_NARROW_BURST {0} \
+   CONFIG.NUM_WRITE_OUTSTANDING {1} \
+   CONFIG.MAX_BURST_LENGTH {1} \
+ ] [get_bd_intf_pins /orcaLmbProcessor/orca/IUC]
 
   # Create instance: psBramController, and set properties
   set psBramController [ create_bd_cell -type ip -vlnv xilinx.com:ip:axi_bram_ctrl:4.0 psBramController ]
@@ -182,15 +186,12 @@ proc create_hier_cell_orcaLmbProcessor { parentCell nameHier } {
    CONFIG.use_bram_block {BRAM_Controller} \
  ] $riscvBram
 
-<<<<<<< HEAD
-=======
   # Create instance: riscvLmbCtrl, and set properties
   set riscvLmbCtrl [ create_bd_cell -type ip -vlnv xilinx.com:ip:lmb_bram_if_cntlr:4.0 riscvLmbCtrl ]
   set_property -dict [ list \
    CONFIG.C_NUM_LMB {2} \
  ] $riscvLmbCtrl
 
->>>>>>> 429bdb2... Added Software IRQ
   # Create instance: riscvReset, and set properties
   set riscvReset [ create_bd_cell -type ip -vlnv xilinx.com:ip:proc_sys_reset:5.0 riscvReset ]
   set_property -dict [ list \
@@ -201,31 +202,19 @@ proc create_hier_cell_orcaLmbProcessor { parentCell nameHier } {
   # Create interface connections
   connect_bd_intf_net -intf_net Conn1 [get_bd_intf_pins M_AXI_DUC] [get_bd_intf_pins orca/DUC]
   connect_bd_intf_net -intf_net Conn2 [get_bd_intf_pins S_AXI_MEM] [get_bd_intf_pins psBramController/S_AXI]
-<<<<<<< HEAD
-  connect_bd_intf_net -intf_net lmb_bram_if_cntlr_0_BRAM_PORT [get_bd_intf_pins lmb_bram_if_cntlr_0/BRAM_PORT] [get_bd_intf_pins riscvBram/BRAM_PORTA]
-  connect_bd_intf_net -intf_net orca_0_DLMB [get_bd_intf_pins lmb_bram_if_cntlr_0/SLMB1] [get_bd_intf_pins orca/DLMB]
-  connect_bd_intf_net -intf_net orca_0_ILMB [get_bd_intf_pins lmb_bram_if_cntlr_0/SLMB] [get_bd_intf_pins orca/ILMB]
-=======
   connect_bd_intf_net -intf_net lmb_bram_if_cntlr_0_BRAM_PORT [get_bd_intf_pins riscvBram/BRAM_PORTA] [get_bd_intf_pins riscvLmbCtrl/BRAM_PORT]
   connect_bd_intf_net -intf_net orca_0_DLMB [get_bd_intf_pins orca/DLMB] [get_bd_intf_pins riscvLmbCtrl/SLMB1]
   connect_bd_intf_net -intf_net orca_0_ILMB [get_bd_intf_pins orca/ILMB] [get_bd_intf_pins riscvLmbCtrl/SLMB]
->>>>>>> 429bdb2... Added Software IRQ
   connect_bd_intf_net -intf_net psBramController_BRAM_PORTA [get_bd_intf_pins psBramController/BRAM_PORTA] [get_bd_intf_pins riscvBram/BRAM_PORTB]
 
   # Create port connections
   connect_bd_net -net aux_reset_in_1 [get_bd_pins riscv_resetn] [get_bd_pins riscvReset/aux_reset_in]
   connect_bd_net -net clk_in1_1 [get_bd_pins s_axi_aclk] [get_bd_pins psBramController/s_axi_aclk]
   connect_bd_net -net ext_reset_in_1 [get_bd_pins por_resetn] [get_bd_pins riscvReset/ext_reset_in]
-<<<<<<< HEAD
-  connect_bd_net -net riscvReset_peripheral_reset [get_bd_pins lmb_bram_if_cntlr_0/LMB_Rst] [get_bd_pins orca/reset] [get_bd_pins riscvReset/peripheral_reset]
-  connect_bd_net -net s_axi_aresetn_1 [get_bd_pins s_axi_aresetn] [get_bd_pins psBramController/s_axi_aresetn]
-  connect_bd_net -net subprocessorClk [get_bd_pins riscv_clk] [get_bd_pins lmb_bram_if_cntlr_0/LMB_Clk] [get_bd_pins orca/clk] [get_bd_pins riscvReset/slowest_sync_clk]
-=======
   connect_bd_net -net riscvReset_peripheral_aresetn [get_bd_pins m_axi_duc_aresetn] [get_bd_pins riscvReset/peripheral_aresetn]
   connect_bd_net -net riscvReset_peripheral_reset [get_bd_pins orca/reset] [get_bd_pins riscvLmbCtrl/LMB_Rst] [get_bd_pins riscvReset/peripheral_reset]
   connect_bd_net -net s_axi_aresetn_1 [get_bd_pins s_axi_aresetn] [get_bd_pins psBramController/s_axi_aresetn]
   connect_bd_net -net subprocessorClk [get_bd_pins m_axi_duc_aclk] [get_bd_pins riscv_clk] [get_bd_pins orca/clk] [get_bd_pins riscvLmbCtrl/LMB_Clk] [get_bd_pins riscvReset/slowest_sync_clk]
->>>>>>> 429bdb2... Added Software IRQ
 
   # Restore current instance
   current_bd_instance $oldCurInst
@@ -1234,15 +1223,10 @@ proc create_root_design { parentCell } {
   create_bd_addr_seg -range 0x00010000 -offset 0x40010000 [get_bd_addr_spaces processing_system7_0/Data] [get_bd_addr_segs orcaLmbProcessor/psBramController/S_AXI/Mem0] SEG_psBramController_Mem0
   create_bd_addr_seg -range 0x00001000 -offset 0x80000000 [get_bd_addr_spaces processing_system7_0/Data] [get_bd_addr_segs psInterruptController/S_AXI/Reg] SEG_psInterruptController_Reg
   create_bd_addr_seg -range 0x00001000 -offset 0x40001000 [get_bd_addr_spaces processing_system7_0/Data] [get_bd_addr_segs subprocessorClk/s_axi_lite/Reg] SEG_subprocessorClk_Reg
-<<<<<<< HEAD
-  create_bd_addr_seg -range 0x00010000 -offset 0x00000000 [get_bd_addr_spaces orcaLmbProcessor/orca/ILMB] [get_bd_addr_segs orcaLmbProcessor/lmb_bram_if_cntlr_0/SLMB/Mem] SEG_lmb_bram_if_cntlr_0_Mem
-  create_bd_addr_seg -range 0x00010000 -offset 0x00000000 [get_bd_addr_spaces orcaLmbProcessor/orca/DLMB] [get_bd_addr_segs orcaLmbProcessor/lmb_bram_if_cntlr_0/SLMB1/Mem] SEG_lmb_bram_if_cntlr_0_Mem
-
-=======
   create_bd_addr_seg -range 0x00010000 -offset 0x00000000 [get_bd_addr_spaces orcaLmbProcessor/orca/ILMB] [get_bd_addr_segs orcaLmbProcessor/riscvLmbCtrl/SLMB/Mem] SEG_lmb_bram_if_cntlr_0_Mem
   create_bd_addr_seg -range 0x00010000 -offset 0x00000000 [get_bd_addr_spaces orcaLmbProcessor/orca/DLMB] [get_bd_addr_segs orcaLmbProcessor/riscvLmbCtrl/SLMB1/Mem] SEG_lmb_bram_if_cntlr_0_Mem
   create_bd_addr_seg -range 0x00001000 -offset 0x80000000 [get_bd_addr_spaces orcaLmbProcessor/orca/DUC] [get_bd_addr_segs psInterruptController/S_AXI/Reg] SEG_psInterruptController_Reg
->>>>>>> 429bdb2... Added Software IRQ
+
 
   # Restore current instance
   current_bd_instance $oldCurInst
