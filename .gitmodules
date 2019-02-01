@@ -7,3 +7,6 @@
 [submodule "orca"]
 	path = orca
 	url = https://github.com/VectorBlox/orca.git
+[submodule "Flute"]
+	path = Flute
+	url = https://github.com/bluespec/Flute
