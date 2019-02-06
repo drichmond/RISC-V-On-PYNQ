@@ -32,11 +32,3 @@
 # USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH
 # DAMAGE.
 # ----------------------------------------------------------------------
-from . import picorv32
-from . import flute
-from . import orca
-from . import piccolo
-from . import magic
-from . import Program
-from . import Overlay
-from . import Processor
