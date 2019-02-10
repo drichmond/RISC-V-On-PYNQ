@@ -1,0 +1,13 @@
+set be8 [get_property "MODELPARAM_VALUE.BE8" [::ipxit::current_scope]]
+if {$be8 == 1} {
+  set endian "big"
+} else {
+  set endian "little"
+}
+
+set cpu [::ipx::add_cpu CORTEX_M1 [current_ipbom]]
+set_property endian         $endian $cpu
+set_property instance_path  ""      $cpu
+set_property bootloop_file  ""      $cpu
+set_property processor_type ARM     $cpu
+set_property is_visible     true    $cpu
