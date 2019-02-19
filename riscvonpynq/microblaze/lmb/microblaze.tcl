@@ -50,10 +50,10 @@ xilinx.com:ip:processing_system7:5.5\
 xilinx.com:ip:axi_intc:4.1\
 xilinx.com:ip:clk_wiz:5.4\
 xilinx.com:ip:xlslice:1.0\
-vectorblox.com:user:orca:1.0\
 xilinx.com:ip:axi_bram_ctrl:4.0\
 xilinx.com:ip:blk_mem_gen:8.4\
 xilinx.com:ip:lmb_bram_if_cntlr:4.0\
+xilinx.com:ip:microblaze:10.0\
 "
 
    set list_ips_missing ""
@@ -131,33 +131,6 @@ proc create_hier_cell_microblazeLmbProcessor { parentCell nameHier } {
   create_bd_pin -dir I -type clk soft_processor_clk
   create_bd_pin -dir I -type rst soft_processor_resetn
 
-  # Create instance: orca, and set properties
-  set orca [ create_bd_cell -type ip -vlnv vectorblox.com:user:orca:1.0 orca ]
-  set_property -dict [ list \
-   CONFIG.AMR0_ADDR_LAST {0x7FFFFFFF} \
-   CONFIG.AMR0_READ_ONLY {0} \
-   CONFIG.AUX_MEMORY_REGIONS {1} \
-   CONFIG.DC_REQUEST_REGISTER {1} \
-   CONFIG.IC_REQUEST_REGISTER {1} \
-   CONFIG.INSTRUCTION_REQUEST_REGISTER {1} \
-   CONFIG.UC_MEMORY_REGIONS {1} \
-   CONFIG.UMR0_ADDR_BASE {0x80000000} \
-   CONFIG.UMR0_ADDR_LAST {0xFFFFFFFF} \
-   CONFIG.UMR0_READ_ONLY {0} \
- ] $orca
-
-  set_property -dict [ list \
-   CONFIG.SUPPORTS_NARROW_BURST {0} \
-   CONFIG.MAX_BURST_LENGTH {1} \
- ] [get_bd_intf_pins /microblazeLmbProcessor/orca/DUC]
-
-  set_property -dict [ list \
-   CONFIG.HAS_BRESP {0} \
-   CONFIG.SUPPORTS_NARROW_BURST {0} \
-   CONFIG.NUM_WRITE_OUTSTANDING {1} \
-   CONFIG.MAX_BURST_LENGTH {1} \
- ] [get_bd_intf_pins /microblazeLmbProcessor/orca/IUC]
-
   # Create instance: psBramController, and set properties
   set psBramController [ create_bd_cell -type ip -vlnv xilinx.com:ip:axi_bram_ctrl:4.0 psBramController ]
   set_property -dict [ list \
@@ -199,21 +172,34 @@ proc create_hier_cell_microblazeLmbProcessor { parentCell nameHier } {
    CONFIG.C_EXT_RST_WIDTH {1} \
  ] $softProcessorReset
 
+  # Create instance: ublaze, and set properties
+  set ublaze [ create_bd_cell -type ip -vlnv xilinx.com:ip:microblaze:10.0 ublaze ]
+  set_property -dict [ list \
+   CONFIG.C_ADDR_TAG_BITS {0} \
+   CONFIG.C_AREA_OPTIMIZED {1} \
+   CONFIG.C_DCACHE_ADDR_TAG {0} \
+   CONFIG.C_DEBUG_ENABLED {0} \
+   CONFIG.C_D_AXI {1} \
+   CONFIG.C_USE_DIV {1} \
+   CONFIG.C_USE_HW_MUL {1} \
+   CONFIG.C_USE_REORDER_INSTR {0} \
+ ] $ublaze
+
   # Create interface connections
-  connect_bd_intf_net -intf_net M_AXI_DUC [get_bd_intf_pins M_AXI_DUC] [get_bd_intf_pins orca/DUC]
   connect_bd_intf_net -intf_net M_BRAM_PS_B [get_bd_intf_pins psBramController/BRAM_PORTA] [get_bd_intf_pins softProcessorBram/BRAM_PORTB]
   connect_bd_intf_net -intf_net M_BRAM_SP_B [get_bd_intf_pins softProcessorBram/BRAM_PORTA] [get_bd_intf_pins softProcessorLmbCtrl/BRAM_PORT]
-  connect_bd_intf_net -intf_net M_LMB_D_B [get_bd_intf_pins orca/DLMB] [get_bd_intf_pins softProcessorLmbCtrl/SLMB1]
-  connect_bd_intf_net -intf_net M_LMB_I_B [get_bd_intf_pins orca/ILMB] [get_bd_intf_pins softProcessorLmbCtrl/SLMB]
   connect_bd_intf_net -intf_net S_AXI_MEM_B [get_bd_intf_pins S_AXI_MEM] [get_bd_intf_pins psBramController/S_AXI]
+  connect_bd_intf_net -intf_net microblaze_0_DLMB [get_bd_intf_pins softProcessorLmbCtrl/SLMB1] [get_bd_intf_pins ublaze/DLMB]
+  connect_bd_intf_net -intf_net microblaze_0_ILMB [get_bd_intf_pins softProcessorLmbCtrl/SLMB] [get_bd_intf_pins ublaze/ILMB]
+  connect_bd_intf_net -intf_net microblaze_0_M_AXI_DP [get_bd_intf_pins M_AXI_DUC] [get_bd_intf_pins ublaze/M_AXI_DP]
 
   # Create port connections
-  connect_bd_net -net peripheral_reset [get_bd_pins orca/reset] [get_bd_pins softProcessorLmbCtrl/LMB_Rst] [get_bd_pins softProcessorReset/peripheral_reset]
+  connect_bd_net -net peripheral_reset [get_bd_pins softProcessorLmbCtrl/LMB_Rst] [get_bd_pins softProcessorReset/peripheral_reset] [get_bd_pins ublaze/Reset]
   connect_bd_net -net por_resetn_w [get_bd_pins por_resetn] [get_bd_pins softProcessorReset/ext_reset_in]
   connect_bd_net -net riscvReset_peripheral_aresetn_w [get_bd_pins m_axi_duc_aresetn] [get_bd_pins softProcessorReset/peripheral_aresetn]
   connect_bd_net -net s_axi_aresetn_w [get_bd_pins s_axi_mem_aresetn] [get_bd_pins psBramController/s_axi_aresetn]
   connect_bd_net -net s_axi_mem_aclk_w [get_bd_pins s_axi_mem_aclk] [get_bd_pins psBramController/s_axi_aclk]
-  connect_bd_net -net soft_processor_clk_w [get_bd_pins m_axi_duc_aclk] [get_bd_pins soft_processor_clk] [get_bd_pins orca/clk] [get_bd_pins softProcessorLmbCtrl/LMB_Clk] [get_bd_pins softProcessorReset/slowest_sync_clk]
+  connect_bd_net -net soft_processor_clk_w [get_bd_pins m_axi_duc_aclk] [get_bd_pins soft_processor_clk] [get_bd_pins softProcessorLmbCtrl/LMB_Clk] [get_bd_pins softProcessorReset/slowest_sync_clk] [get_bd_pins ublaze/Clk]
   connect_bd_net -net soft_processor_resetn_w [get_bd_pins soft_processor_resetn] [get_bd_pins softProcessorReset/aux_reset_in]
 
   # Restore current instance
@@ -1223,9 +1209,9 @@ proc create_root_design { parentCell } {
   create_bd_addr_seg -range 0x00010000 -offset 0x40010000 [get_bd_addr_spaces processing_system7_0/Data] [get_bd_addr_segs microblazeLmbProcessor/psBramController/S_AXI/Mem0] SEG_psBramController_Mem0
   create_bd_addr_seg -range 0x00001000 -offset 0x80000000 [get_bd_addr_spaces processing_system7_0/Data] [get_bd_addr_segs psInterruptController/S_AXI/Reg] SEG_psInterruptController_Reg
   create_bd_addr_seg -range 0x00001000 -offset 0x40001000 [get_bd_addr_spaces processing_system7_0/Data] [get_bd_addr_segs softProcessorClk/s_axi_lite/Reg] SEG_subprocessorClk_Reg
-  create_bd_addr_seg -range 0x00010000 -offset 0x00000000 [get_bd_addr_spaces microblazeLmbProcessor/orca/ILMB] [get_bd_addr_segs microblazeLmbProcessor/softProcessorLmbCtrl/SLMB/Mem] SEG_lmb_bram_if_cntlr_0_Mem
-  create_bd_addr_seg -range 0x00010000 -offset 0x00000000 [get_bd_addr_spaces microblazeLmbProcessor/orca/DLMB] [get_bd_addr_segs microblazeLmbProcessor/softProcessorLmbCtrl/SLMB1/Mem] SEG_lmb_bram_if_cntlr_0_Mem
-  create_bd_addr_seg -range 0x00001000 -offset 0x80000000 [get_bd_addr_spaces microblazeLmbProcessor/orca/DUC] [get_bd_addr_segs psInterruptController/S_AXI/Reg] SEG_psInterruptController_Reg
+  create_bd_addr_seg -range 0x00001000 -offset 0x80000000 [get_bd_addr_spaces microblazeLmbProcessor/ublaze/Data] [get_bd_addr_segs psInterruptController/S_AXI/Reg] SEG_psInterruptController_Reg
+  create_bd_addr_seg -range 0x00010000 -offset 0x00000000 [get_bd_addr_spaces microblazeLmbProcessor/ublaze/Data] [get_bd_addr_segs microblazeLmbProcessor/softProcessorLmbCtrl/SLMB1/Mem] SEG_softProcessorLmbCtrl_Mem
+  create_bd_addr_seg -range 0x00010000 -offset 0x00000000 [get_bd_addr_spaces microblazeLmbProcessor/ublaze/Instruction] [get_bd_addr_segs microblazeLmbProcessor/softProcessorLmbCtrl/SLMB/Mem] SEG_softProcessorLmbCtrl_Mem
 
 
   # Restore current instance
