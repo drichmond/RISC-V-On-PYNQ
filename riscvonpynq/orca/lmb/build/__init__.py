@@ -32,9 +32,3 @@
 # USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH
 # DAMAGE.
 # ----------------------------------------------------------------------
-from . import picorv32
-from . import magic
-from . import orca
-from . import Program
-from . import Overlay
-from . import Processor
