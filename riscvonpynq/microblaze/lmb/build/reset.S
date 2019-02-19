@@ -1,22 +1,21 @@
   .section ".text.init"
   .globl _start
 _start:
-	addi    r1, r0, 65536
-// Enable ICache
-	mfs	r12, rmsr
+	addi    r1, r0, STKPTR
 	nop
-	ori	r12, r12, (1<<5)
-	mts	rmsr, r12
+	lwi    r5, r1, -4
 	nop
-// Enable DCache
-	mfs	r12, rmsr
-	nop
-	ori	r12, r12, (1<<7)
-	mts	rmsr, r12
+	lwi    r6, r1, -8
 	nop
 	brlid   r15, main
 	nop
-_end:	
+	swi r3, r1, -4
+	nop
+	ori r12, r0, 1
+	nop
+	swi r12, r0, iomem
+	nop
+__end:	
 	bri _end
 	nop
 	
