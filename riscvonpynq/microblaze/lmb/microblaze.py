@@ -41,6 +41,7 @@ class Processor(LmbProcessor):
     """
     _name = 'microblazeLmbProcessor'
     _proc = 'ublaze'
+    _reset_name = 'soft_processor_resetn'
     _bits = 32
     @classmethod
     def checkhierarchy(cls, description):
