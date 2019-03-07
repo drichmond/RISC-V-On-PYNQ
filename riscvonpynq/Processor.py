@@ -93,7 +93,7 @@ class Processor(pynq.DefaultHierarchy):
         self.__reset_value = reset_value
         self.__nreset_value = int(not(reset_value))
 
-        self.__resetPin = self.riscv_resetn
+        self.__resetPin = self.__getattr__(self._reset_name)
         self.__reset_s = None
         self._reset()
 
@@ -481,3 +481,13 @@ class BramProcessor(Processor):
         argv_buf[:] = arg_ptrs
         return (argv_buf, argv_ptr, arg_bufs, arg_ptrs)
 
+class LmbProcessor(BramProcessor):
+    """Subclass Hierarchy driver for RISC-V Processors with mixed BRAM
+    memory spaces
+
+    Facilitates loading user programs on to RISC-V Processors.
+
+    """
+    pass
+class cortexm1(BramProcessor):
+    pass
