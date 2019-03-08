@@ -50,11 +50,8 @@ xilinx.com:ip:processing_system7:5.5\
 xilinx.com:ip:axi_intc:4.1\
 xilinx.com:ip:xlslice:1.0\
 xilinx.com:ip:clk_wiz:5.4\
-bluespec.com:user:piccolo_AC32IMU:1.0\
+bluespec.com:ip:piccolo_RV32IMU:1.0\
 xilinx.com:ip:axi_bram_ctrl:4.0\
-xilinx.com:ip:axi_protocol_converter:2.1\
-xilinx.com:ip:axi_crossbar:2.1\
-xilinx.com:ip:axi_clock_converter:2.1\
 xilinx.com:ip:blk_mem_gen:8.4\
 "
 
@@ -85,13 +82,13 @@ if { $bCheckIPsPassed != 1 } {
 ##################################################################
 
 
-# Hierarchical cell: orcaLmbProcessor
-proc create_hier_cell_orcaLmbProcessor { parentCell nameHier } {
+# Hierarchical cell: piccoloAxiProcessor
+proc create_hier_cell_piccoloAxiProcessor { parentCell nameHier } {
 
   variable script_folder
 
   if { $parentCell eq "" || $nameHier eq "" } {
-     catch {common::send_msg_id "BD_TCL-102" "ERROR" "create_hier_cell_orcaLmbProcessor() - Empty argument(s)!"}
+     catch {common::send_msg_id "BD_TCL-102" "ERROR" "create_hier_cell_piccoloAxiProcessor() - Empty argument(s)!"}
      return
   }
 
@@ -133,27 +130,29 @@ proc create_hier_cell_orcaLmbProcessor { parentCell nameHier } {
   create_bd_pin -dir I -type clk s_axi_aclk
   create_bd_pin -dir I -type rst s_axi_aresetn
 
+  # Create instance: axi_interconnect_0, and set properties
+  set axi_interconnect_0 [ create_bd_cell -type ip -vlnv xilinx.com:ip:axi_interconnect:2.1 axi_interconnect_0 ]
+  set_property -dict [ list \
+   CONFIG.NUM_MI {1} \
+   CONFIG.NUM_SI {2} \
+ ] $axi_interconnect_0
+
   # Create instance: piccolo, and set properties
-  set piccolo [ create_bd_cell -type ip -vlnv bluespec.com:user:piccolo_AC32IMU:1.0 piccolo ]
+  set piccolo [ create_bd_cell -type ip -vlnv bluespec.com:ip:piccolo_RV32IMU:1.0 piccolo ]
 
   set_property -dict [ list \
-   CONFIG.SUPPORTS_NARROW_BURST {0} \
-   CONFIG.NUM_READ_OUTSTANDING {1} \
-   CONFIG.NUM_WRITE_OUTSTANDING {1} \
-   CONFIG.MAX_BURST_LENGTH {1} \
- ] [get_bd_intf_pins /orcaLmbProcessor/piccolo/dmem_master]
+   CONFIG.SUPPORTS_NARROW_BURST {1} \
+   CONFIG.NUM_READ_OUTSTANDING {2} \
+   CONFIG.NUM_WRITE_OUTSTANDING {2} \
+   CONFIG.MAX_BURST_LENGTH {256} \
+ ] [get_bd_intf_pins /piccoloAxiProcessor/piccolo/M_AXI_DMEM]
 
   set_property -dict [ list \
-   CONFIG.SUPPORTS_NARROW_BURST {0} \
-   CONFIG.NUM_READ_OUTSTANDING {1} \
-   CONFIG.NUM_WRITE_OUTSTANDING {1} \
-   CONFIG.MAX_BURST_LENGTH {1} \
- ] [get_bd_intf_pins /orcaLmbProcessor/piccolo/imem_master]
-
-  set_property -dict [ list \
-   CONFIG.NUM_READ_OUTSTANDING {1} \
-   CONFIG.NUM_WRITE_OUTSTANDING {1} \
- ] [get_bd_intf_pins /orcaLmbProcessor/piccolo/near_mem_slave]
+   CONFIG.SUPPORTS_NARROW_BURST {1} \
+   CONFIG.NUM_READ_OUTSTANDING {2} \
+   CONFIG.NUM_WRITE_OUTSTANDING {2} \
+   CONFIG.MAX_BURST_LENGTH {256} \
+ ] [get_bd_intf_pins /piccoloAxiProcessor/piccolo/M_AXI_IMEM]
 
   # Create instance: procBramController, and set properties
   set procBramController [ create_bd_cell -type ip -vlnv xilinx.com:ip:axi_bram_ctrl:4.0 procBramController ]
@@ -164,16 +163,6 @@ proc create_hier_cell_orcaLmbProcessor { parentCell nameHier } {
    CONFIG.SINGLE_PORT_BRAM {1} \
  ] $procBramController
 
-  # Create instance: procProtocolConv, and set properties
-  set procProtocolConv [ create_bd_cell -type ip -vlnv xilinx.com:ip:axi_protocol_converter:2.1 procProtocolConv ]
-
-  # Create instance: procXbar, and set properties
-  set procXbar [ create_bd_cell -type ip -vlnv xilinx.com:ip:axi_crossbar:2.1 procXbar ]
-  set_property -dict [ list \
-   CONFIG.NUM_MI {2} \
-   CONFIG.NUM_SI {2} \
- ] $procXbar
-
   # Create instance: psBramController, and set properties
   set psBramController [ create_bd_cell -type ip -vlnv xilinx.com:ip:axi_bram_ctrl:4.0 psBramController ]
   set_property -dict [ list \
@@ -182,15 +171,6 @@ proc create_hier_cell_orcaLmbProcessor { parentCell nameHier } {
    CONFIG.PROTOCOL {AXI4} \
    CONFIG.SINGLE_PORT_BRAM {1} \
  ] $psBramController
-
-  # Create instance: psClockConv, and set properties
-  set psClockConv [ create_bd_cell -type ip -vlnv xilinx.com:ip:axi_clock_converter:2.1 psClockConv ]
-
-  # Create instance: psCrossbar, and set properties
-  set psCrossbar [ create_bd_cell -type ip -vlnv xilinx.com:ip:axi_crossbar:2.1 psCrossbar ]
-
-  # Create instance: psProtocolConv, and set properties
-  set psProtocolConv [ create_bd_cell -type ip -vlnv xilinx.com:ip:axi_protocol_converter:2.1 psProtocolConv ]
 
   # Create instance: riscvBram, and set properties
   set riscvBram [ create_bd_cell -type ip -vlnv xilinx.com:ip:blk_mem_gen:8.4 riscvBram ]
@@ -220,26 +200,21 @@ proc create_hier_cell_orcaLmbProcessor { parentCell nameHier } {
  ] $riscvReset
 
   # Create interface connections
-  connect_bd_intf_net -intf_net S_AXI_MEM_1 [get_bd_intf_pins S_AXI_MEM] [get_bd_intf_pins psCrossbar/S00_AXI]
-  connect_bd_intf_net -intf_net axi_clock_converter_0_M_AXI [get_bd_intf_pins piccolo/near_mem_slave] [get_bd_intf_pins psClockConv/M_AXI]
-  connect_bd_intf_net -intf_net axi_crossbar_0_M00_AXI [get_bd_intf_pins procProtocolConv/S_AXI] [get_bd_intf_pins procXbar/M00_AXI]
-  connect_bd_intf_net -intf_net axi_crossbar_0_M01_AXI [get_bd_intf_pins M_AXI_DMEM] [get_bd_intf_pins procXbar/M01_AXI]
-  connect_bd_intf_net -intf_net axi_crossbar_0_M01_AXI1 [get_bd_intf_pins psBramController/S_AXI] [get_bd_intf_pins psCrossbar/M01_AXI]
-  connect_bd_intf_net -intf_net axi_protocol_converter_0_M_AXI [get_bd_intf_pins procBramController/S_AXI] [get_bd_intf_pins procProtocolConv/M_AXI]
-  connect_bd_intf_net -intf_net piccolo_AC32IMU_0_dmem_master [get_bd_intf_pins piccolo/dmem_master] [get_bd_intf_pins procXbar/S00_AXI]
-  connect_bd_intf_net -intf_net piccolo_AC32IMU_0_imem_master [get_bd_intf_pins piccolo/imem_master] [get_bd_intf_pins procXbar/S01_AXI]
+  connect_bd_intf_net -intf_net S00_AXI_1 [get_bd_intf_pins axi_interconnect_0/S00_AXI] [get_bd_intf_pins piccolo/M_AXI_DMEM]
+  connect_bd_intf_net -intf_net S_AXI_MEM_1 [get_bd_intf_pins S_AXI_MEM] [get_bd_intf_pins psBramController/S_AXI]
+  connect_bd_intf_net -intf_net axi_interconnect_0_M00_AXI [get_bd_intf_pins axi_interconnect_0/M00_AXI] [get_bd_intf_pins procBramController/S_AXI]
+  connect_bd_intf_net -intf_net piccolo_M_AXI_IMEM [get_bd_intf_pins axi_interconnect_0/S01_AXI] [get_bd_intf_pins piccolo/M_AXI_IMEM]
   connect_bd_intf_net -intf_net psBramController1_BRAM_PORTA [get_bd_intf_pins procBramController/BRAM_PORTA] [get_bd_intf_pins riscvBram/BRAM_PORTA]
   connect_bd_intf_net -intf_net psBramController_BRAM_PORTA [get_bd_intf_pins psBramController/BRAM_PORTA] [get_bd_intf_pins riscvBram/BRAM_PORTB]
-  connect_bd_intf_net -intf_net psCrossbar_M00_AXI [get_bd_intf_pins psCrossbar/M00_AXI] [get_bd_intf_pins psProtocolConv/S_AXI]
-  connect_bd_intf_net -intf_net psProtocolConv_M_AXI [get_bd_intf_pins psClockConv/S_AXI] [get_bd_intf_pins psProtocolConv/M_AXI]
 
   # Create port connections
   connect_bd_net -net aux_reset_in_1 [get_bd_pins riscv_resetn] [get_bd_pins riscvReset/aux_reset_in]
-  connect_bd_net -net clk_in1_1 [get_bd_pins s_axi_aclk] [get_bd_pins psBramController/s_axi_aclk] [get_bd_pins psClockConv/s_axi_aclk] [get_bd_pins psCrossbar/aclk] [get_bd_pins psProtocolConv/aclk]
+  connect_bd_net -net clk_in1_1 [get_bd_pins s_axi_aclk] [get_bd_pins psBramController/s_axi_aclk]
   connect_bd_net -net ext_reset_in_1 [get_bd_pins por_resetn] [get_bd_pins riscvReset/ext_reset_in]
-  connect_bd_net -net riscvReset_peripheral_aresetn [get_bd_pins m_axi_dmem_aresetn] [get_bd_pins piccolo/RST_N] [get_bd_pins procBramController/s_axi_aresetn] [get_bd_pins procProtocolConv/aresetn] [get_bd_pins procXbar/aresetn] [get_bd_pins psClockConv/m_axi_aresetn] [get_bd_pins riscvReset/peripheral_aresetn]
-  connect_bd_net -net s_axi_aresetn_1 [get_bd_pins s_axi_aresetn] [get_bd_pins psBramController/s_axi_aresetn] [get_bd_pins psClockConv/s_axi_aresetn] [get_bd_pins psCrossbar/aresetn] [get_bd_pins psProtocolConv/aresetn]
-  connect_bd_net -net subprocessorClk [get_bd_pins m_axi_dmem_aclk] [get_bd_pins riscv_clk] [get_bd_pins piccolo/CLK] [get_bd_pins procBramController/s_axi_aclk] [get_bd_pins procProtocolConv/aclk] [get_bd_pins procXbar/aclk] [get_bd_pins psClockConv/m_axi_aclk] [get_bd_pins riscvReset/slowest_sync_clk]
+  connect_bd_net -net riscvReset_interconnect_aresetn [get_bd_pins axi_interconnect_0/ARESETN] [get_bd_pins riscvReset/interconnect_aresetn]
+  connect_bd_net -net riscvReset_peripheral_aresetn [get_bd_pins m_axi_dmem_aresetn] [get_bd_pins axi_interconnect_0/M00_ARESETN] [get_bd_pins axi_interconnect_0/S00_ARESETN] [get_bd_pins axi_interconnect_0/S01_ARESETN] [get_bd_pins piccolo/RST_N] [get_bd_pins procBramController/s_axi_aresetn]  [get_bd_pins riscvReset/peripheral_aresetn]
+  connect_bd_net -net s_axi_aresetn_1 [get_bd_pins s_axi_aresetn] [get_bd_pins psBramController/s_axi_aresetn]
+  connect_bd_net -net subprocessorClk [get_bd_pins m_axi_dmem_aclk] [get_bd_pins riscv_clk] [get_bd_pins axi_interconnect_0/ACLK] [get_bd_pins axi_interconnect_0/M00_ACLK] [get_bd_pins axi_interconnect_0/S00_ACLK] [get_bd_pins axi_interconnect_0/S01_ACLK] [get_bd_pins piccolo/CLK] [get_bd_pins procBramController/s_axi_aclk] [get_bd_pins riscvReset/slowest_sync_clk]
 
   # Restore current instance
   current_bd_instance $oldCurInst
@@ -302,8 +277,8 @@ proc create_root_design { parentCell } {
    CONFIG.NUM_PORTS {1} \
  ] $irqConcat
 
-  # Create instance: orcaLmbProcessor
-  create_hier_cell_orcaLmbProcessor [current_bd_instance .] orcaLmbProcessor
+  # Create instance: piccoloAxiProcessor
+  create_hier_cell_piccoloAxiProcessor [current_bd_instance .] piccoloAxiProcessor
 
   # Create instance: porReset, and set properties
   set porReset [ create_bd_cell -type ip -vlnv xilinx.com:ip:proc_sys_reset:5.0 porReset ]
@@ -1220,8 +1195,8 @@ proc create_root_design { parentCell } {
  ] $subprocessorClk
 
   # Create interface connections
-  connect_bd_intf_net -intf_net S01_AXI_1 [get_bd_intf_pins irqAxiInterconnect/S01_AXI] [get_bd_intf_pins orcaLmbProcessor/M_AXI_DMEM]
-  connect_bd_intf_net -intf_net S_AXI_MEM_1 [get_bd_intf_pins orcaLmbProcessor/S_AXI_MEM] [get_bd_intf_pins psAxiInterconnect/M01_AXI]
+  connect_bd_intf_net -intf_net S01_AXI_1 [get_bd_intf_pins irqAxiInterconnect/S01_AXI] [get_bd_intf_pins piccoloAxiProcessor/M_AXI_DMEM]
+  connect_bd_intf_net -intf_net S_AXI_MEM_1 [get_bd_intf_pins piccoloAxiProcessor/S_AXI_MEM] [get_bd_intf_pins psAxiInterconnect/M01_AXI]
   connect_bd_intf_net -intf_net S_AXI_PSX [get_bd_intf_pins processing_system7_0/M_AXI_GP0] [get_bd_intf_pins psAxiInterconnect/S00_AXI]
   connect_bd_intf_net -intf_net irqAxiInterconnect_M00_AXI [get_bd_intf_pins irqAxiInterconnect/M00_AXI] [get_bd_intf_pins psInterruptController/s_axi]
   connect_bd_intf_net -intf_net processing_system7_0_DDR [get_bd_intf_ports DDR] [get_bd_intf_pins processing_system7_0/DDR]
@@ -1230,29 +1205,32 @@ proc create_root_design { parentCell } {
   connect_bd_intf_net -intf_net psAxiInterconnect_M00_AXI [get_bd_intf_pins psAxiInterconnect/M00_AXI] [get_bd_intf_pins subprocessorClk/s_axi_lite]
 
   # Create port connections
-  connect_bd_net -net FCLK_CLK0 [get_bd_pins irqAxiInterconnect/ACLK] [get_bd_pins irqAxiInterconnect/M00_ACLK] [get_bd_pins irqAxiInterconnect/S00_ACLK] [get_bd_pins orcaLmbProcessor/s_axi_aclk] [get_bd_pins porReset/slowest_sync_clk] [get_bd_pins processing_system7_0/FCLK_CLK0] [get_bd_pins processing_system7_0/M_AXI_GP0_ACLK] [get_bd_pins processing_system7_0/M_AXI_GP1_ACLK] [get_bd_pins psAxiInterconnect/ACLK] [get_bd_pins psAxiInterconnect/M00_ACLK] [get_bd_pins psAxiInterconnect/M01_ACLK] [get_bd_pins psAxiInterconnect/S00_ACLK] [get_bd_pins psInterruptController/s_axi_aclk] [get_bd_pins subprocessorClk/clk_in1] [get_bd_pins subprocessorClk/s_axi_aclk]
+  connect_bd_net -net FCLK_CLK0 [get_bd_pins irqAxiInterconnect/ACLK] [get_bd_pins irqAxiInterconnect/M00_ACLK] [get_bd_pins irqAxiInterconnect/S00_ACLK] [get_bd_pins piccoloAxiProcessor/s_axi_aclk] [get_bd_pins porReset/slowest_sync_clk] [get_bd_pins processing_system7_0/FCLK_CLK0] [get_bd_pins processing_system7_0/M_AXI_GP0_ACLK] [get_bd_pins processing_system7_0/M_AXI_GP1_ACLK] [get_bd_pins psAxiInterconnect/ACLK] [get_bd_pins psAxiInterconnect/M00_ACLK] [get_bd_pins psAxiInterconnect/M01_ACLK] [get_bd_pins psAxiInterconnect/S00_ACLK] [get_bd_pins psInterruptController/s_axi_aclk] [get_bd_pins subprocessorClk/clk_in1] [get_bd_pins subprocessorClk/s_axi_aclk]
   connect_bd_net -net FCLK_CLK1 [get_bd_pins processing_system7_0/FCLK_CLK1] [get_bd_pins processing_system7_0/S_AXI_HP2_ACLK]
-  connect_bd_net -net S00_ARESETN_1 [get_bd_pins irqAxiInterconnect/M00_ARESETN] [get_bd_pins irqAxiInterconnect/S00_ARESETN] [get_bd_pins orcaLmbProcessor/s_axi_aresetn] [get_bd_pins porReset/peripheral_aresetn] [get_bd_pins psAxiInterconnect/M00_ARESETN] [get_bd_pins psAxiInterconnect/M01_ARESETN] [get_bd_pins psAxiInterconnect/S00_ARESETN] [get_bd_pins psInterruptController/s_axi_aresetn] [get_bd_pins subprocessorClk/s_axi_aresetn]
-  connect_bd_net -net orcaLmbProcessor_irq [get_bd_pins irqConcat/In0] [get_bd_pins orcaLmbProcessor/irq]
-  connect_bd_net -net orcaLmbProcessor_m_axi_duc_aclk [get_bd_pins irqAxiInterconnect/S01_ACLK] [get_bd_pins orcaLmbProcessor/m_axi_dmem_aclk]
-  connect_bd_net -net orcaLmbProcessor_m_axi_duc_aresetn [get_bd_pins irqAxiInterconnect/S01_ARESETN] [get_bd_pins orcaLmbProcessor/m_axi_dmem_aresetn]
+  connect_bd_net -net S00_ARESETN_1 [get_bd_pins irqAxiInterconnect/M00_ARESETN] [get_bd_pins irqAxiInterconnect/S00_ARESETN] [get_bd_pins piccoloAxiProcessor/s_axi_aresetn] [get_bd_pins porReset/peripheral_aresetn] [get_bd_pins psAxiInterconnect/M00_ARESETN] [get_bd_pins psAxiInterconnect/M01_ARESETN] [get_bd_pins psAxiInterconnect/S00_ARESETN] [get_bd_pins psInterruptController/s_axi_aresetn] [get_bd_pins subprocessorClk/s_axi_aresetn]
+  connect_bd_net -net orcaLmbProcessor_irq [get_bd_pins irqConcat/In0] [get_bd_pins piccoloAxiProcessor/irq]
+  connect_bd_net -net orcaLmbProcessor_m_axi_duc_aclk [get_bd_pins irqAxiInterconnect/S01_ACLK] [get_bd_pins piccoloAxiProcessor/m_axi_dmem_aclk]
+  connect_bd_net -net orcaLmbProcessor_m_axi_duc_aresetn [get_bd_pins irqAxiInterconnect/S01_ARESETN] [get_bd_pins piccoloAxiProcessor/m_axi_dmem_aresetn]
   connect_bd_net -net porReset_interconnect_aresetn [get_bd_pins irqAxiInterconnect/ARESETN] [get_bd_pins porReset/interconnect_aresetn] [get_bd_pins psAxiInterconnect/ARESETN]
-  connect_bd_net -net por_resetn [get_bd_pins orcaLmbProcessor/por_resetn] [get_bd_pins porReset/ext_reset_in] [get_bd_pins processing_system7_0/FCLK_RESET0_N]
+  connect_bd_net -net por_resetn [get_bd_pins piccoloAxiProcessor/por_resetn] [get_bd_pins porReset/ext_reset_in] [get_bd_pins processing_system7_0/FCLK_RESET0_N]
   connect_bd_net -net processing_system7_0_GPIO_O [get_bd_pins processing_system7_0/GPIO_O] [get_bd_pins resetSlice/Din]
   connect_bd_net -net psirq [get_bd_pins processing_system7_0/IRQ_F2P] [get_bd_pins psInterruptController/irq]
-  connect_bd_net -net riscv_resetn [get_bd_pins orcaLmbProcessor/riscv_resetn] [get_bd_pins resetSlice/Dout]
-  connect_bd_net -net subprocessorClk [get_bd_pins orcaLmbProcessor/riscv_clk] [get_bd_pins processing_system7_0/S_AXI_HP0_ACLK] [get_bd_pins subprocessorClk/clk_out1]
+  connect_bd_net -net riscv_resetn [get_bd_pins piccoloAxiProcessor/riscv_resetn] [get_bd_pins resetSlice/Dout]
+  connect_bd_net -net subprocessorClk [get_bd_pins piccoloAxiProcessor/riscv_clk] [get_bd_pins processing_system7_0/S_AXI_HP0_ACLK] [get_bd_pins subprocessorClk/clk_out1]
   connect_bd_net -net xlconcat_0_dout [get_bd_pins irqConcat/dout] [get_bd_pins psInterruptController/intr]
 
   # Create address segments
-  create_bd_addr_seg -range 0x00008000 -offset 0x60000000 [get_bd_addr_spaces processing_system7_0/Data] [get_bd_addr_segs orcaLmbProcessor/piccolo/near_mem_slave/reg0] SEG_piccolo_reg0
-  create_bd_addr_seg -range 0x00010000 -offset 0x40010000 [get_bd_addr_spaces processing_system7_0/Data] [get_bd_addr_segs orcaLmbProcessor/psBramController/S_AXI/Mem0] SEG_psBramController_Mem0
+  create_bd_addr_seg -range 0x00010000 -offset 0x40010000 [get_bd_addr_spaces processing_system7_0/Data] [get_bd_addr_segs piccoloAxiProcessor/psBramController/S_AXI/Mem0] SEG_psBramController_Mem0
   create_bd_addr_seg -range 0x00001000 -offset 0x80000000 [get_bd_addr_spaces processing_system7_0/Data] [get_bd_addr_segs psInterruptController/S_AXI/Reg] SEG_psInterruptController_Reg
   create_bd_addr_seg -range 0x00001000 -offset 0x40001000 [get_bd_addr_spaces processing_system7_0/Data] [get_bd_addr_segs subprocessorClk/s_axi_lite/Reg] SEG_subprocessorClk_Reg
-  create_bd_addr_seg -range 0x00001000 -offset 0x00000000 [get_bd_addr_spaces orcaLmbProcessor/piccolo/dmem_master] [get_bd_addr_segs orcaLmbProcessor/procBramController/S_AXI/Mem0] SEG_procBramController_Mem0
-  create_bd_addr_seg -range 0x00001000 -offset 0x00000000 [get_bd_addr_spaces orcaLmbProcessor/piccolo/imem_master] [get_bd_addr_segs orcaLmbProcessor/procBramController/S_AXI/Mem0] SEG_procBramController_Mem0
-  create_bd_addr_seg -range 0x00001000 -offset 0x80000000 [get_bd_addr_spaces orcaLmbProcessor/piccolo/dmem_master] [get_bd_addr_segs psInterruptController/S_AXI/Reg] SEG_psInterruptController_Reg
-  create_bd_addr_seg -range 0x00001000 -offset 0x80000000 [get_bd_addr_spaces orcaLmbProcessor/piccolo/imem_master] [get_bd_addr_segs psInterruptController/S_AXI/Reg] SEG_psInterruptController_Reg
+  create_bd_addr_seg -range 0x00010000 -offset 0x00000000 [get_bd_addr_spaces piccoloAxiProcessor/piccolo/M_AXI_DMEM] [get_bd_addr_segs piccoloAxiProcessor/procBramController/S_AXI/Mem0] SEG_procBramController_Mem0
+  create_bd_addr_seg -range 0x00010000 -offset 0x00000000 [get_bd_addr_spaces piccoloAxiProcessor/piccolo/M_AXI_IMEM] [get_bd_addr_segs piccoloAxiProcessor/procBramController/S_AXI/Mem0] SEG_procBramController_Mem0
+  create_bd_addr_seg -range 0x00001000 -offset 0x80000000 [get_bd_addr_spaces piccoloAxiProcessor/piccolo/M_AXI_DMEM] [get_bd_addr_segs psInterruptController/S_AXI/Reg] SEG_psInterruptController_Reg
+
+  # Exclude Address Segments
+  create_bd_addr_seg -range 0x00001000 -offset 0x80000000 [get_bd_addr_spaces piccoloAxiProcessor/piccolo/M_AXI_IMEM] [get_bd_addr_segs psInterruptController/S_AXI/Reg] SEG_psInterruptController_Reg
+  exclude_bd_addr_seg [get_bd_addr_segs piccoloAxiProcessor/piccolo/M_AXI_IMEM/SEG_psInterruptController_Reg]
+
 
 
   # Restore current instance
@@ -1268,7 +1246,7 @@ proc available_tcl_procs { } {
    puts "##################################################################"
    puts "# Available Tcl procedures to recreate hierarchical blocks:"
    puts "#"
-   puts "#    create_hier_cell_orcaLmbProcessor parentCell nameHier"
+   puts "#    create_hier_cell_piccoloAxiProcessor parentCell nameHier"
    puts "#    create_root_design"
    puts "#"
    puts "#"
