@@ -18,7 +18,7 @@
             <spirit:name>AWID</spirit:name>
           </spirit:logicalPort>
           <spirit:physicalPort>
-            <spirit:name>cpu_dmem_master_awid</spirit:name>
+            <spirit:name>M_AXI_DMEM_awid</spirit:name>
           </spirit:physicalPort>
         </spirit:portMap>
         <spirit:portMap>
@@ -26,7 +26,7 @@
             <spirit:name>AWADDR</spirit:name>
           </spirit:logicalPort>
           <spirit:physicalPort>
-            <spirit:name>cpu_dmem_master_awaddr</spirit:name>
+            <spirit:name>M_AXI_DMEM_awaddr</spirit:name>
           </spirit:physicalPort>
         </spirit:portMap>
         <spirit:portMap>
@@ -34,7 +34,7 @@
             <spirit:name>AWLEN</spirit:name>
           </spirit:logicalPort>
           <spirit:physicalPort>
-            <spirit:name>cpu_dmem_master_awlen</spirit:name>
+            <spirit:name>M_AXI_DMEM_awlen</spirit:name>
           </spirit:physicalPort>
         </spirit:portMap>
         <spirit:portMap>
@@ -42,7 +42,7 @@
             <spirit:name>AWSIZE</spirit:name>
           </spirit:logicalPort>
           <spirit:physicalPort>
-            <spirit:name>cpu_dmem_master_awsize</spirit:name>
+            <spirit:name>M_AXI_DMEM_awsize</spirit:name>
           </spirit:physicalPort>
         </spirit:portMap>
         <spirit:portMap>
@@ -50,7 +50,7 @@
             <spirit:name>AWBURST</spirit:name>
           </spirit:logicalPort>
           <spirit:physicalPort>
-            <spirit:name>cpu_dmem_master_awburst</spirit:name>
+            <spirit:name>M_AXI_DMEM_awburst</spirit:name>
           </spirit:physicalPort>
         </spirit:portMap>
         <spirit:portMap>
@@ -58,7 +58,7 @@
             <spirit:name>AWLOCK</spirit:name>
           </spirit:logicalPort>
           <spirit:physicalPort>
-            <spirit:name>cpu_dmem_master_awlock</spirit:name>
+            <spirit:name>M_AXI_DMEM_awlock</spirit:name>
           </spirit:physicalPort>
         </spirit:portMap>
         <spirit:portMap>
@@ -66,7 +66,7 @@
             <spirit:name>AWCACHE</spirit:name>
           </spirit:logicalPort>
           <spirit:physicalPort>
-            <spirit:name>cpu_dmem_master_awcache</spirit:name>
+            <spirit:name>M_AXI_DMEM_awcache</spirit:name>
           </spirit:physicalPort>
         </spirit:portMap>
         <spirit:portMap>
@@ -74,7 +74,7 @@
             <spirit:name>AWPROT</spirit:name>
           </spirit:logicalPort>
           <spirit:physicalPort>
-            <spirit:name>cpu_dmem_master_awprot</spirit:name>
+            <spirit:name>M_AXI_DMEM_awprot</spirit:name>
           </spirit:physicalPort>
         </spirit:portMap>
         <spirit:portMap>
@@ -82,7 +82,7 @@
             <spirit:name>AWREGION</spirit:name>
           </spirit:logicalPort>
           <spirit:physicalPort>
-            <spirit:name>cpu_dmem_master_awregion</spirit:name>
+            <spirit:name>M_AXI_DMEM_awregion</spirit:name>
           </spirit:physicalPort>
         </spirit:portMap>
         <spirit:portMap>
@@ -90,7 +90,7 @@
             <spirit:name>AWQOS</spirit:name>
           </spirit:logicalPort>
           <spirit:physicalPort>
-            <spirit:name>cpu_dmem_master_awqos</spirit:name>
+            <spirit:name>M_AXI_DMEM_awqos</spirit:name>
           </spirit:physicalPort>
         </spirit:portMap>
         <spirit:portMap>
@@ -98,7 +98,7 @@
             <spirit:name>AWVALID</spirit:name>
           </spirit:logicalPort>
           <spirit:physicalPort>
-            <spirit:name>cpu_dmem_master_awvalid</spirit:name>
+            <spirit:name>M_AXI_DMEM_awvalid</spirit:name>
           </spirit:physicalPort>
         </spirit:portMap>
         <spirit:portMap>
@@ -106,7 +106,7 @@
             <spirit:name>AWREADY</spirit:name>
           </spirit:logicalPort>
           <spirit:physicalPort>
-            <spirit:name>cpu_dmem_master_awready</spirit:name>
+            <spirit:name>M_AXI_DMEM_awready</spirit:name>
           </spirit:physicalPort>
         </spirit:portMap>
         <spirit:portMap>
@@ -114,7 +114,7 @@
             <spirit:name>WID</spirit:name>
           </spirit:logicalPort>
           <spirit:physicalPort>
-            <spirit:name>cpu_dmem_master_wid</spirit:name>
+            <spirit:name>M_AXI_DMEM_wid</spirit:name>
           </spirit:physicalPort>
         </spirit:portMap>
         <spirit:portMap>
@@ -122,7 +122,7 @@
             <spirit:name>WDATA</spirit:name>
           </spirit:logicalPort>
           <spirit:physicalPort>
-            <spirit:name>cpu_dmem_master_wdata</spirit:name>
+            <spirit:name>M_AXI_DMEM_wdata</spirit:name>
           </spirit:physicalPort>
         </spirit:portMap>
         <spirit:portMap>
@@ -130,7 +130,7 @@
             <spirit:name>WSTRB</spirit:name>
           </spirit:logicalPort>
           <spirit:physicalPort>
-            <spirit:name>cpu_dmem_master_wstrb</spirit:name>
+            <spirit:name>M_AXI_DMEM_wstrb</spirit:name>
           </spirit:physicalPort>
         </spirit:portMap>
         <spirit:portMap>
@@ -138,7 +138,7 @@
             <spirit:name>WLAST</spirit:name>
           </spirit:logicalPort>
           <spirit:physicalPort>
-            <spirit:name>cpu_dmem_master_wlast</spirit:name>
+            <spirit:name>M_AXI_DMEM_wlast</spirit:name>
           </spirit:physicalPort>
         </spirit:portMap>
         <spirit:portMap>
@@ -146,7 +146,7 @@
             <spirit:name>WVALID</spirit:name>
           </spirit:logicalPort>
           <spirit:physicalPort>
-            <spirit:name>cpu_dmem_master_wvalid</spirit:name>
+            <spirit:name>M_AXI_DMEM_wvalid</spirit:name>
           </spirit:physicalPort>
         </spirit:portMap>
         <spirit:portMap>
@@ -154,7 +154,7 @@
             <spirit:name>WREADY</spirit:name>
           </spirit:logicalPort>
           <spirit:physicalPort>
-            <spirit:name>cpu_dmem_master_wready</spirit:name>
+            <spirit:name>M_AXI_DMEM_wready</spirit:name>
           </spirit:physicalPort>
         </spirit:portMap>
         <spirit:portMap>
@@ -162,7 +162,7 @@
             <spirit:name>BID</spirit:name>
           </spirit:logicalPort>
           <spirit:physicalPort>
-            <spirit:name>cpu_dmem_master_bid</spirit:name>
+            <spirit:name>M_AXI_DMEM_bid</spirit:name>
           </spirit:physicalPort>
         </spirit:portMap>
         <spirit:portMap>
@@ -170,7 +170,7 @@
             <spirit:name>BRESP</spirit:name>
           </spirit:logicalPort>
           <spirit:physicalPort>
-            <spirit:name>cpu_dmem_master_bresp</spirit:name>
+            <spirit:name>M_AXI_DMEM_bresp</spirit:name>
           </spirit:physicalPort>
         </spirit:portMap>
         <spirit:portMap>
@@ -178,7 +178,7 @@
             <spirit:name>BVALID</spirit:name>
           </spirit:logicalPort>
           <spirit:physicalPort>
-            <spirit:name>cpu_dmem_master_bvalid</spirit:name>
+            <spirit:name>M_AXI_DMEM_bvalid</spirit:name>
           </spirit:physicalPort>
         </spirit:portMap>
         <spirit:portMap>
@@ -186,7 +186,7 @@
             <spirit:name>BREADY</spirit:name>
           </spirit:logicalPort>
           <spirit:physicalPort>
-            <spirit:name>cpu_dmem_master_bready</spirit:name>
+            <spirit:name>M_AXI_DMEM_bready</spirit:name>
           </spirit:physicalPort>
         </spirit:portMap>
         <spirit:portMap>
@@ -194,7 +194,7 @@
             <spirit:name>ARID</spirit:name>
           </spirit:logicalPort>
           <spirit:physicalPort>
-            <spirit:name>cpu_dmem_master_arid</spirit:name>
+            <spirit:name>M_AXI_DMEM_arid</spirit:name>
           </spirit:physicalPort>
         </spirit:portMap>
         <spirit:portMap>
@@ -202,7 +202,7 @@
             <spirit:name>ARADDR</spirit:name>
           </spirit:logicalPort>
           <spirit:physicalPort>
-            <spirit:name>cpu_dmem_master_araddr</spirit:name>
+            <spirit:name>M_AXI_DMEM_araddr</spirit:name>
           </spirit:physicalPort>
         </spirit:portMap>
         <spirit:portMap>
@@ -210,7 +210,7 @@
             <spirit:name>ARLEN</spirit:name>
           </spirit:logicalPort>
           <spirit:physicalPort>
-            <spirit:name>cpu_dmem_master_arlen</spirit:name>
+            <spirit:name>M_AXI_DMEM_arlen</spirit:name>
           </spirit:physicalPort>
         </spirit:portMap>
         <spirit:portMap>
@@ -218,7 +218,7 @@
             <spirit:name>ARSIZE</spirit:name>
           </spirit:logicalPort>
           <spirit:physicalPort>
-            <spirit:name>cpu_dmem_master_arsize</spirit:name>
+            <spirit:name>M_AXI_DMEM_arsize</spirit:name>
           </spirit:physicalPort>
         </spirit:portMap>
         <spirit:portMap>
@@ -226,7 +226,7 @@
             <spirit:name>ARBURST</spirit:name>
           </spirit:logicalPort>
           <spirit:physicalPort>
-            <spirit:name>cpu_dmem_master_arburst</spirit:name>
+            <spirit:name>M_AXI_DMEM_arburst</spirit:name>
           </spirit:physicalPort>
         </spirit:portMap>
         <spirit:portMap>
@@ -234,7 +234,7 @@
             <spirit:name>ARLOCK</spirit:name>
           </spirit:logicalPort>
           <spirit:physicalPort>
-            <spirit:name>cpu_dmem_master_arlock</spirit:name>
+            <spirit:name>M_AXI_DMEM_arlock</spirit:name>
           </spirit:physicalPort>
         </spirit:portMap>
         <spirit:portMap>
@@ -242,7 +242,7 @@
             <spirit:name>ARCACHE</spirit:name>
           </spirit:logicalPort>
           <spirit:physicalPort>
-            <spirit:name>cpu_dmem_master_arcache</spirit:name>
+            <spirit:name>M_AXI_DMEM_arcache</spirit:name>
           </spirit:physicalPort>
         </spirit:portMap>
         <spirit:portMap>
@@ -250,7 +250,7 @@
             <spirit:name>ARPROT</spirit:name>
           </spirit:logicalPort>
           <spirit:physicalPort>
-            <spirit:name>cpu_dmem_master_arprot</spirit:name>
+            <spirit:name>M_AXI_DMEM_arprot</spirit:name>
           </spirit:physicalPort>
         </spirit:portMap>
         <spirit:portMap>
@@ -258,7 +258,7 @@
             <spirit:name>ARREGION</spirit:name>
           </spirit:logicalPort>
           <spirit:physicalPort>
-            <spirit:name>cpu_dmem_master_arregion</spirit:name>
+            <spirit:name>M_AXI_DMEM_arregion</spirit:name>
           </spirit:physicalPort>
         </spirit:portMap>
         <spirit:portMap>
@@ -266,7 +266,7 @@
             <spirit:name>ARQOS</spirit:name>
           </spirit:logicalPort>
           <spirit:physicalPort>
-            <spirit:name>cpu_dmem_master_arqos</spirit:name>
+            <spirit:name>M_AXI_DMEM_arqos</spirit:name>
           </spirit:physicalPort>
         </spirit:portMap>
         <spirit:portMap>
@@ -274,7 +274,7 @@
             <spirit:name>ARVALID</spirit:name>
           </spirit:logicalPort>
           <spirit:physicalPort>
-            <spirit:name>cpu_dmem_master_arvalid</spirit:name>
+            <spirit:name>M_AXI_DMEM_arvalid</spirit:name>
           </spirit:physicalPort>
         </spirit:portMap>
         <spirit:portMap>
@@ -282,7 +282,7 @@
             <spirit:name>ARREADY</spirit:name>
           </spirit:logicalPort>
           <spirit:physicalPort>
-            <spirit:name>cpu_dmem_master_arready</spirit:name>
+            <spirit:name>M_AXI_DMEM_arready</spirit:name>
           </spirit:physicalPort>
         </spirit:portMap>
         <spirit:portMap>
@@ -290,7 +290,7 @@
             <spirit:name>RID</spirit:name>
           </spirit:logicalPort>
           <spirit:physicalPort>
-            <spirit:name>cpu_dmem_master_rid</spirit:name>
+            <spirit:name>M_AXI_DMEM_rid</spirit:name>
           </spirit:physicalPort>
         </spirit:portMap>
         <spirit:portMap>
@@ -298,7 +298,7 @@
             <spirit:name>RDATA</spirit:name>
           </spirit:logicalPort>
           <spirit:physicalPort>
-            <spirit:name>cpu_dmem_master_rdata</spirit:name>
+            <spirit:name>M_AXI_DMEM_rdata</spirit:name>
           </spirit:physicalPort>
         </spirit:portMap>
         <spirit:portMap>
@@ -306,7 +306,7 @@
             <spirit:name>RRESP</spirit:name>
           </spirit:logicalPort>
           <spirit:physicalPort>
-            <spirit:name>cpu_dmem_master_rresp</spirit:name>
+            <spirit:name>M_AXI_DMEM_rresp</spirit:name>
           </spirit:physicalPort>
         </spirit:portMap>
         <spirit:portMap>
@@ -314,7 +314,7 @@
             <spirit:name>RLAST</spirit:name>
           </spirit:logicalPort>
           <spirit:physicalPort>
-            <spirit:name>cpu_dmem_master_rlast</spirit:name>
+            <spirit:name>M_AXI_DMEM_rlast</spirit:name>
           </spirit:physicalPort>
         </spirit:portMap>
         <spirit:portMap>
@@ -322,7 +322,7 @@
             <spirit:name>RVALID</spirit:name>
           </spirit:logicalPort>
           <spirit:physicalPort>
-            <spirit:name>cpu_dmem_master_rvalid</spirit:name>
+            <spirit:name>M_AXI_DMEM_rvalid</spirit:name>
           </spirit:physicalPort>
         </spirit:portMap>
         <spirit:portMap>
@@ -330,7 +330,7 @@
             <spirit:name>RREADY</spirit:name>
           </spirit:logicalPort>
           <spirit:physicalPort>
-            <spirit:name>cpu_dmem_master_rready</spirit:name>
+            <spirit:name>M_AXI_DMEM_rready</spirit:name>
           </spirit:physicalPort>
         </spirit:portMap>
       </spirit:portMaps>
@@ -348,7 +348,7 @@
             <spirit:name>AWID</spirit:name>
           </spirit:logicalPort>
           <spirit:physicalPort>
-            <spirit:name>cpu_imem_master_awid</spirit:name>
+            <spirit:name>M_AXI_IMEM_awid</spirit:name>
           </spirit:physicalPort>
         </spirit:portMap>
         <spirit:portMap>
@@ -356,7 +356,7 @@
             <spirit:name>AWADDR</spirit:name>
           </spirit:logicalPort>
           <spirit:physicalPort>
-            <spirit:name>cpu_imem_master_awaddr</spirit:name>
+            <spirit:name>M_AXI_IMEM_awaddr</spirit:name>
           </spirit:physicalPort>
         </spirit:portMap>
         <spirit:portMap>
@@ -364,7 +364,7 @@
             <spirit:name>AWLEN</spirit:name>
           </spirit:logicalPort>
           <spirit:physicalPort>
-            <spirit:name>cpu_imem_master_awlen</spirit:name>
+            <spirit:name>M_AXI_IMEM_awlen</spirit:name>
           </spirit:physicalPort>
         </spirit:portMap>
         <spirit:portMap>
@@ -372,7 +372,7 @@
             <spirit:name>AWSIZE</spirit:name>
           </spirit:logicalPort>
           <spirit:physicalPort>
-            <spirit:name>cpu_imem_master_awsize</spirit:name>
+            <spirit:name>M_AXI_IMEM_awsize</spirit:name>
           </spirit:physicalPort>
         </spirit:portMap>
         <spirit:portMap>
@@ -380,7 +380,7 @@
             <spirit:name>AWBURST</spirit:name>
           </spirit:logicalPort>
           <spirit:physicalPort>
-            <spirit:name>cpu_imem_master_awburst</spirit:name>
+            <spirit:name>M_AXI_IMEM_awburst</spirit:name>
           </spirit:physicalPort>
         </spirit:portMap>
         <spirit:portMap>
@@ -388,7 +388,7 @@
             <spirit:name>AWLOCK</spirit:name>
           </spirit:logicalPort>
           <spirit:physicalPort>
-            <spirit:name>cpu_imem_master_awlock</spirit:name>
+            <spirit:name>M_AXI_IMEM_awlock</spirit:name>
           </spirit:physicalPort>
         </spirit:portMap>
         <spirit:portMap>
@@ -396,7 +396,7 @@
             <spirit:name>AWCACHE</spirit:name>
           </spirit:logicalPort>
           <spirit:physicalPort>
-            <spirit:name>cpu_imem_master_awcache</spirit:name>
+            <spirit:name>M_AXI_IMEM_awcache</spirit:name>
           </spirit:physicalPort>
         </spirit:portMap>
         <spirit:portMap>
@@ -404,7 +404,7 @@
             <spirit:name>AWPROT</spirit:name>
           </spirit:logicalPort>
           <spirit:physicalPort>
-            <spirit:name>cpu_imem_master_awprot</spirit:name>
+            <spirit:name>M_AXI_IMEM_awprot</spirit:name>
           </spirit:physicalPort>
         </spirit:portMap>
         <spirit:portMap>
@@ -412,7 +412,7 @@
             <spirit:name>AWREGION</spirit:name>
           </spirit:logicalPort>
           <spirit:physicalPort>
-            <spirit:name>cpu_imem_master_awregion</spirit:name>
+            <spirit:name>M_AXI_IMEM_awregion</spirit:name>
           </spirit:physicalPort>
         </spirit:portMap>
         <spirit:portMap>
@@ -420,7 +420,7 @@
             <spirit:name>AWQOS</spirit:name>
           </spirit:logicalPort>
           <spirit:physicalPort>
-            <spirit:name>cpu_imem_master_awqos</spirit:name>
+            <spirit:name>M_AXI_IMEM_awqos</spirit:name>
           </spirit:physicalPort>
         </spirit:portMap>
         <spirit:portMap>
@@ -428,7 +428,7 @@
             <spirit:name>AWVALID</spirit:name>
           </spirit:logicalPort>
           <spirit:physicalPort>
-            <spirit:name>cpu_imem_master_awvalid</spirit:name>
+            <spirit:name>M_AXI_IMEM_awvalid</spirit:name>
           </spirit:physicalPort>
         </spirit:portMap>
         <spirit:portMap>
@@ -436,7 +436,7 @@
             <spirit:name>AWREADY</spirit:name>
           </spirit:logicalPort>
           <spirit:physicalPort>
-            <spirit:name>cpu_imem_master_awready</spirit:name>
+            <spirit:name>M_AXI_IMEM_awready</spirit:name>
           </spirit:physicalPort>
         </spirit:portMap>
         <spirit:portMap>
@@ -444,7 +444,7 @@
             <spirit:name>WID</spirit:name>
           </spirit:logicalPort>
           <spirit:physicalPort>
-            <spirit:name>cpu_imem_master_wid</spirit:name>
+            <spirit:name>M_AXI_IMEM_wid</spirit:name>
           </spirit:physicalPort>
         </spirit:portMap>
         <spirit:portMap>
@@ -452,7 +452,7 @@
             <spirit:name>WDATA</spirit:name>
           </spirit:logicalPort>
           <spirit:physicalPort>
-            <spirit:name>cpu_imem_master_wdata</spirit:name>
+            <spirit:name>M_AXI_IMEM_wdata</spirit:name>
           </spirit:physicalPort>
         </spirit:portMap>
         <spirit:portMap>
@@ -460,7 +460,7 @@
             <spirit:name>WSTRB</spirit:name>
           </spirit:logicalPort>
           <spirit:physicalPort>
-            <spirit:name>cpu_imem_master_wstrb</spirit:name>
+            <spirit:name>M_AXI_IMEM_wstrb</spirit:name>
           </spirit:physicalPort>
         </spirit:portMap>
         <spirit:portMap>
@@ -468,7 +468,7 @@
             <spirit:name>WLAST</spirit:name>
           </spirit:logicalPort>
           <spirit:physicalPort>
-            <spirit:name>cpu_imem_master_wlast</spirit:name>
+            <spirit:name>M_AXI_IMEM_wlast</spirit:name>
           </spirit:physicalPort>
         </spirit:portMap>
         <spirit:portMap>
@@ -476,7 +476,7 @@
             <spirit:name>WVALID</spirit:name>
           </spirit:logicalPort>
           <spirit:physicalPort>
-            <spirit:name>cpu_imem_master_wvalid</spirit:name>
+            <spirit:name>M_AXI_IMEM_wvalid</spirit:name>
           </spirit:physicalPort>
         </spirit:portMap>
         <spirit:portMap>
@@ -484,7 +484,7 @@
             <spirit:name>WREADY</spirit:name>
           </spirit:logicalPort>
           <spirit:physicalPort>
-            <spirit:name>cpu_imem_master_wready</spirit:name>
+            <spirit:name>M_AXI_IMEM_wready</spirit:name>
           </spirit:physicalPort>
         </spirit:portMap>
         <spirit:portMap>
@@ -492,7 +492,7 @@
             <spirit:name>BID</spirit:name>
           </spirit:logicalPort>
           <spirit:physicalPort>
-            <spirit:name>cpu_imem_master_bid</spirit:name>
+            <spirit:name>M_AXI_IMEM_bid</spirit:name>
           </spirit:physicalPort>
         </spirit:portMap>
         <spirit:portMap>
@@ -500,7 +500,7 @@
             <spirit:name>BRESP</spirit:name>
           </spirit:logicalPort>
           <spirit:physicalPort>
-            <spirit:name>cpu_imem_master_bresp</spirit:name>
+            <spirit:name>M_AXI_IMEM_bresp</spirit:name>
           </spirit:physicalPort>
         </spirit:portMap>
         <spirit:portMap>
@@ -508,7 +508,7 @@
             <spirit:name>BVALID</spirit:name>
           </spirit:logicalPort>
           <spirit:physicalPort>
-            <spirit:name>cpu_imem_master_bvalid</spirit:name>
+            <spirit:name>M_AXI_IMEM_bvalid</spirit:name>
           </spirit:physicalPort>
         </spirit:portMap>
         <spirit:portMap>
@@ -516,7 +516,7 @@
             <spirit:name>BREADY</spirit:name>
           </spirit:logicalPort>
           <spirit:physicalPort>
-            <spirit:name>cpu_imem_master_bready</spirit:name>
+            <spirit:name>M_AXI_IMEM_bready</spirit:name>
           </spirit:physicalPort>
         </spirit:portMap>
         <spirit:portMap>
@@ -524,7 +524,7 @@
             <spirit:name>ARID</spirit:name>
           </spirit:logicalPort>
           <spirit:physicalPort>
-            <spirit:name>cpu_imem_master_arid</spirit:name>
+            <spirit:name>M_AXI_IMEM_arid</spirit:name>
           </spirit:physicalPort>
         </spirit:portMap>
         <spirit:portMap>
@@ -532,7 +532,7 @@
             <spirit:name>ARADDR</spirit:name>
           </spirit:logicalPort>
           <spirit:physicalPort>
-            <spirit:name>cpu_imem_master_araddr</spirit:name>
+            <spirit:name>M_AXI_IMEM_araddr</spirit:name>
           </spirit:physicalPort>
         </spirit:portMap>
         <spirit:portMap>
@@ -540,7 +540,7 @@
             <spirit:name>ARLEN</spirit:name>
           </spirit:logicalPort>
           <spirit:physicalPort>
-            <spirit:name>cpu_imem_master_arlen</spirit:name>
+            <spirit:name>M_AXI_IMEM_arlen</spirit:name>
           </spirit:physicalPort>
         </spirit:portMap>
         <spirit:portMap>
@@ -548,7 +548,7 @@
             <spirit:name>ARSIZE</spirit:name>
           </spirit:logicalPort>
           <spirit:physicalPort>
-            <spirit:name>cpu_imem_master_arsize</spirit:name>
+            <spirit:name>M_AXI_IMEM_arsize</spirit:name>
           </spirit:physicalPort>
         </spirit:portMap>
         <spirit:portMap>
@@ -556,7 +556,7 @@
             <spirit:name>ARBURST</spirit:name>
           </spirit:logicalPort>
           <spirit:physicalPort>
-            <spirit:name>cpu_imem_master_arburst</spirit:name>
+            <spirit:name>M_AXI_IMEM_arburst</spirit:name>
           </spirit:physicalPort>
         </spirit:portMap>
         <spirit:portMap>
@@ -564,7 +564,7 @@
             <spirit:name>ARLOCK</spirit:name>
           </spirit:logicalPort>
           <spirit:physicalPort>
-            <spirit:name>cpu_imem_master_arlock</spirit:name>
+            <spirit:name>M_AXI_IMEM_arlock</spirit:name>
           </spirit:physicalPort>
         </spirit:portMap>
         <spirit:portMap>
@@ -572,7 +572,7 @@
             <spirit:name>ARCACHE</spirit:name>
           </spirit:logicalPort>
           <spirit:physicalPort>
-            <spirit:name>cpu_imem_master_arcache</spirit:name>
+            <spirit:name>M_AXI_IMEM_arcache</spirit:name>
           </spirit:physicalPort>
         </spirit:portMap>
         <spirit:portMap>
@@ -580,7 +580,7 @@
             <spirit:name>ARPROT</spirit:name>
           </spirit:logicalPort>
           <spirit:physicalPort>
-            <spirit:name>cpu_imem_master_arprot</spirit:name>
+            <spirit:name>M_AXI_IMEM_arprot</spirit:name>
           </spirit:physicalPort>
         </spirit:portMap>
         <spirit:portMap>
@@ -588,7 +588,7 @@
             <spirit:name>ARREGION</spirit:name>
           </spirit:logicalPort>
           <spirit:physicalPort>
-            <spirit:name>cpu_imem_master_arregion</spirit:name>
+            <spirit:name>M_AXI_IMEM_arregion</spirit:name>
           </spirit:physicalPort>
         </spirit:portMap>
         <spirit:portMap>
@@ -596,7 +596,7 @@
             <spirit:name>ARQOS</spirit:name>
           </spirit:logicalPort>
           <spirit:physicalPort>
-            <spirit:name>cpu_imem_master_arqos</spirit:name>
+            <spirit:name>M_AXI_IMEM_arqos</spirit:name>
           </spirit:physicalPort>
         </spirit:portMap>
         <spirit:portMap>
@@ -604,7 +604,7 @@
             <spirit:name>ARVALID</spirit:name>
           </spirit:logicalPort>
           <spirit:physicalPort>
-            <spirit:name>cpu_imem_master_arvalid</spirit:name>
+            <spirit:name>M_AXI_IMEM_arvalid</spirit:name>
           </spirit:physicalPort>
         </spirit:portMap>
         <spirit:portMap>
@@ -612,7 +612,7 @@
             <spirit:name>ARREADY</spirit:name>
           </spirit:logicalPort>
           <spirit:physicalPort>
-            <spirit:name>cpu_imem_master_arready</spirit:name>
+            <spirit:name>M_AXI_IMEM_arready</spirit:name>
           </spirit:physicalPort>
         </spirit:portMap>
         <spirit:portMap>
@@ -620,7 +620,7 @@
             <spirit:name>RID</spirit:name>
           </spirit:logicalPort>
           <spirit:physicalPort>
-            <spirit:name>cpu_imem_master_rid</spirit:name>
+            <spirit:name>M_AXI_IMEM_rid</spirit:name>
           </spirit:physicalPort>
         </spirit:portMap>
         <spirit:portMap>
@@ -628,7 +628,7 @@
             <spirit:name>RDATA</spirit:name>
           </spirit:logicalPort>
           <spirit:physicalPort>
-            <spirit:name>cpu_imem_master_rdata</spirit:name>
+            <spirit:name>M_AXI_IMEM_rdata</spirit:name>
           </spirit:physicalPort>
         </spirit:portMap>
         <spirit:portMap>
@@ -636,7 +636,7 @@
             <spirit:name>RRESP</spirit:name>
           </spirit:logicalPort>
           <spirit:physicalPort>
-            <spirit:name>cpu_imem_master_rresp</spirit:name>
+            <spirit:name>M_AXI_IMEM_rresp</spirit:name>
           </spirit:physicalPort>
         </spirit:portMap>
         <spirit:portMap>
@@ -644,7 +644,7 @@
             <spirit:name>RLAST</spirit:name>
           </spirit:logicalPort>
           <spirit:physicalPort>
-            <spirit:name>cpu_imem_master_rlast</spirit:name>
+            <spirit:name>M_AXI_IMEM_rlast</spirit:name>
           </spirit:physicalPort>
         </spirit:portMap>
         <spirit:portMap>
@@ -652,7 +652,7 @@
             <spirit:name>RVALID</spirit:name>
           </spirit:logicalPort>
           <spirit:physicalPort>
-            <spirit:name>cpu_imem_master_rvalid</spirit:name>
+            <spirit:name>M_AXI_IMEM_rvalid</spirit:name>
           </spirit:physicalPort>
         </spirit:portMap>
         <spirit:portMap>
@@ -660,7 +660,7 @@
             <spirit:name>RREADY</spirit:name>
           </spirit:logicalPort>
           <spirit:physicalPort>
-            <spirit:name>cpu_imem_master_rready</spirit:name>
+            <spirit:name>M_AXI_IMEM_rready</spirit:name>
           </spirit:physicalPort>
         </spirit:portMap>
       </spirit:portMaps>
@@ -705,7 +705,7 @@
       <spirit:parameters>
         <spirit:parameter>
           <spirit:name>ASSOCIATED_BUSIF</spirit:name>
-          <spirit:value spirit:id="BUSIFPARAM_VALUE.CLK.ASSOCIATED_BUSIF">cpu_dmem_master:cpu_imem_master:M_AXI_IMEM:M_AXI_DMEM</spirit:value>
+          <spirit:value spirit:id="BUSIFPARAM_VALUE.CLK.ASSOCIATED_BUSIF">M_AXI_IMEM:M_AXI_DMEM</spirit:value>
         </spirit:parameter>
         <spirit:parameter>
           <spirit:name>ASSOCIATED_RESET</spirit:name>
@@ -825,7 +825,7 @@
         </spirit:wire>
       </spirit:port>
       <spirit:port>
-        <spirit:name>cpu_dmem_master_arready</spirit:name>
+        <spirit:name>M_AXI_DMEM_arready</spirit:name>
         <spirit:wire>
           <spirit:direction>in</spirit:direction>
           <spirit:wireTypeDefs>
@@ -841,7 +841,7 @@
         </spirit:wire>
       </spirit:port>
       <spirit:port>
-        <spirit:name>cpu_dmem_master_awready</spirit:name>
+        <spirit:name>M_AXI_DMEM_awready</spirit:name>
         <spirit:wire>
           <spirit:direction>in</spirit:direction>
           <spirit:wireTypeDefs>
@@ -857,7 +857,7 @@
         </spirit:wire>
       </spirit:port>
       <spirit:port>
-        <spirit:name>cpu_dmem_master_bid</spirit:name>
+        <spirit:name>M_AXI_DMEM_bid</spirit:name>
         <spirit:wire>
           <spirit:direction>in</spirit:direction>
           <spirit:vector>
@@ -877,7 +877,7 @@
         </spirit:wire>
       </spirit:port>
       <spirit:port>
-        <spirit:name>cpu_dmem_master_bresp</spirit:name>
+        <spirit:name>M_AXI_DMEM_bresp</spirit:name>
         <spirit:wire>
           <spirit:direction>in</spirit:direction>
           <spirit:vector>
@@ -897,7 +897,7 @@
         </spirit:wire>
       </spirit:port>
       <spirit:port>
-        <spirit:name>cpu_dmem_master_bvalid</spirit:name>
+        <spirit:name>M_AXI_DMEM_bvalid</spirit:name>
         <spirit:wire>
           <spirit:direction>in</spirit:direction>
           <spirit:wireTypeDefs>
@@ -913,7 +913,7 @@
         </spirit:wire>
       </spirit:port>
       <spirit:port>
-        <spirit:name>cpu_dmem_master_rdata</spirit:name>
+        <spirit:name>M_AXI_DMEM_rdata</spirit:name>
         <spirit:wire>
           <spirit:direction>in</spirit:direction>
           <spirit:vector>
@@ -933,7 +933,7 @@
         </spirit:wire>
       </spirit:port>
       <spirit:port>
-        <spirit:name>cpu_dmem_master_rid</spirit:name>
+        <spirit:name>M_AXI_DMEM_rid</spirit:name>
         <spirit:wire>
           <spirit:direction>in</spirit:direction>
           <spirit:vector>
@@ -953,7 +953,7 @@
         </spirit:wire>
       </spirit:port>
       <spirit:port>
-        <spirit:name>cpu_dmem_master_rlast</spirit:name>
+        <spirit:name>M_AXI_DMEM_rlast</spirit:name>
         <spirit:wire>
           <spirit:direction>in</spirit:direction>
           <spirit:wireTypeDefs>
@@ -969,7 +969,7 @@
         </spirit:wire>
       </spirit:port>
       <spirit:port>
-        <spirit:name>cpu_dmem_master_rresp</spirit:name>
+        <spirit:name>M_AXI_DMEM_rresp</spirit:name>
         <spirit:wire>
           <spirit:direction>in</spirit:direction>
           <spirit:vector>
@@ -989,7 +989,7 @@
         </spirit:wire>
       </spirit:port>
       <spirit:port>
-        <spirit:name>cpu_dmem_master_rvalid</spirit:name>
+        <spirit:name>M_AXI_DMEM_rvalid</spirit:name>
         <spirit:wire>
           <spirit:direction>in</spirit:direction>
           <spirit:wireTypeDefs>
@@ -1005,7 +1005,7 @@
         </spirit:wire>
       </spirit:port>
       <spirit:port>
-        <spirit:name>cpu_dmem_master_wready</spirit:name>
+        <spirit:name>M_AXI_DMEM_wready</spirit:name>
         <spirit:wire>
           <spirit:direction>in</spirit:direction>
           <spirit:wireTypeDefs>
@@ -1034,7 +1034,7 @@
         </spirit:wire>
       </spirit:port>
       <spirit:port>
-        <spirit:name>cpu_imem_master_arready</spirit:name>
+        <spirit:name>M_AXI_IMEM_arready</spirit:name>
         <spirit:wire>
           <spirit:direction>in</spirit:direction>
           <spirit:wireTypeDefs>
@@ -1050,7 +1050,7 @@
         </spirit:wire>
       </spirit:port>
       <spirit:port>
-        <spirit:name>cpu_imem_master_awready</spirit:name>
+        <spirit:name>M_AXI_IMEM_awready</spirit:name>
         <spirit:wire>
           <spirit:direction>in</spirit:direction>
           <spirit:wireTypeDefs>
@@ -1066,7 +1066,7 @@
         </spirit:wire>
       </spirit:port>
       <spirit:port>
-        <spirit:name>cpu_imem_master_bid</spirit:name>
+        <spirit:name>M_AXI_IMEM_bid</spirit:name>
         <spirit:wire>
           <spirit:direction>in</spirit:direction>
           <spirit:vector>
@@ -1086,99 +1086,7 @@
         </spirit:wire>
       </spirit:port>
       <spirit:port>
-        <spirit:name>cpu_imem_master_bresp</spirit:name>
-        <spirit:wire>
-          <spirit:direction>in</spirit:direction>
-          <spirit:vector>
-            <spirit:left spirit:format="long">1</spirit:left>
-            <spirit:right spirit:format="long">0</spirit:right>
-          </spirit:vector>
-          <spirit:wireTypeDefs>
-            <spirit:wireTypeDef>
-              <spirit:typeName>std_logic_vector</spirit:typeName>
-              <spirit:viewNameRef>xilinx_anylanguagesynthesis</spirit:viewNameRef>
-              <spirit:viewNameRef>xilinx_anylanguagebehavioralsimulation</spirit:viewNameRef>
-            </spirit:wireTypeDef>
-          </spirit:wireTypeDefs>
-          <spirit:driver>
-            <spirit:defaultValue spirit:format="long">0</spirit:defaultValue>
-          </spirit:driver>
-        </spirit:wire>
-      </spirit:port>
-      <spirit:port>
-        <spirit:name>cpu_imem_master_bvalid</spirit:name>
-        <spirit:wire>
-          <spirit:direction>in</spirit:direction>
-          <spirit:wireTypeDefs>
-            <spirit:wireTypeDef>
-              <spirit:typeName>std_logic</spirit:typeName>
-              <spirit:viewNameRef>xilinx_anylanguagesynthesis</spirit:viewNameRef>
-              <spirit:viewNameRef>xilinx_anylanguagebehavioralsimulation</spirit:viewNameRef>
-            </spirit:wireTypeDef>
-          </spirit:wireTypeDefs>
-          <spirit:driver>
-            <spirit:defaultValue spirit:format="long">0</spirit:defaultValue>
-          </spirit:driver>
-        </spirit:wire>
-      </spirit:port>
-      <spirit:port>
-        <spirit:name>cpu_imem_master_rdata</spirit:name>
-        <spirit:wire>
-          <spirit:direction>in</spirit:direction>
-          <spirit:vector>
-            <spirit:left spirit:format="long">63</spirit:left>
-            <spirit:right spirit:format="long">0</spirit:right>
-          </spirit:vector>
-          <spirit:wireTypeDefs>
-            <spirit:wireTypeDef>
-              <spirit:typeName>std_logic_vector</spirit:typeName>
-              <spirit:viewNameRef>xilinx_anylanguagesynthesis</spirit:viewNameRef>
-              <spirit:viewNameRef>xilinx_anylanguagebehavioralsimulation</spirit:viewNameRef>
-            </spirit:wireTypeDef>
-          </spirit:wireTypeDefs>
-          <spirit:driver>
-            <spirit:defaultValue spirit:format="long">0</spirit:defaultValue>
-          </spirit:driver>
-        </spirit:wire>
-      </spirit:port>
-      <spirit:port>
-        <spirit:name>cpu_imem_master_rid</spirit:name>
-        <spirit:wire>
-          <spirit:direction>in</spirit:direction>
-          <spirit:vector>
-            <spirit:left spirit:format="long">3</spirit:left>
-            <spirit:right spirit:format="long">0</spirit:right>
-          </spirit:vector>
-          <spirit:wireTypeDefs>
-            <spirit:wireTypeDef>
-              <spirit:typeName>std_logic_vector</spirit:typeName>
-              <spirit:viewNameRef>xilinx_anylanguagesynthesis</spirit:viewNameRef>
-              <spirit:viewNameRef>xilinx_anylanguagebehavioralsimulation</spirit:viewNameRef>
-            </spirit:wireTypeDef>
-          </spirit:wireTypeDefs>
-          <spirit:driver>
-            <spirit:defaultValue spirit:format="long">0</spirit:defaultValue>
-          </spirit:driver>
-        </spirit:wire>
-      </spirit:port>
-      <spirit:port>
-        <spirit:name>cpu_imem_master_rlast</spirit:name>
-        <spirit:wire>
-          <spirit:direction>in</spirit:direction>
-          <spirit:wireTypeDefs>
-            <spirit:wireTypeDef>
-              <spirit:typeName>std_logic</spirit:typeName>
-              <spirit:viewNameRef>xilinx_anylanguagesynthesis</spirit:viewNameRef>
-              <spirit:viewNameRef>xilinx_anylanguagebehavioralsimulation</spirit:viewNameRef>
-            </spirit:wireTypeDef>
-          </spirit:wireTypeDefs>
-          <spirit:driver>
-            <spirit:defaultValue spirit:format="long">0</spirit:defaultValue>
-          </spirit:driver>
-        </spirit:wire>
-      </spirit:port>
-      <spirit:port>
-        <spirit:name>cpu_imem_master_rresp</spirit:name>
+        <spirit:name>M_AXI_IMEM_bresp</spirit:name>
         <spirit:wire>
           <spirit:direction>in</spirit:direction>
           <spirit:vector>
@@ -1198,7 +1106,7 @@
         </spirit:wire>
       </spirit:port>
       <spirit:port>
-        <spirit:name>cpu_imem_master_rvalid</spirit:name>
+        <spirit:name>M_AXI_IMEM_bvalid</spirit:name>
         <spirit:wire>
           <spirit:direction>in</spirit:direction>
           <spirit:wireTypeDefs>
@@ -1214,7 +1122,47 @@
         </spirit:wire>
       </spirit:port>
       <spirit:port>
-        <spirit:name>cpu_imem_master_wready</spirit:name>
+        <spirit:name>M_AXI_IMEM_rdata</spirit:name>
+        <spirit:wire>
+          <spirit:direction>in</spirit:direction>
+          <spirit:vector>
+            <spirit:left spirit:format="long">63</spirit:left>
+            <spirit:right spirit:format="long">0</spirit:right>
+          </spirit:vector>
+          <spirit:wireTypeDefs>
+            <spirit:wireTypeDef>
+              <spirit:typeName>std_logic_vector</spirit:typeName>
+              <spirit:viewNameRef>xilinx_anylanguagesynthesis</spirit:viewNameRef>
+              <spirit:viewNameRef>xilinx_anylanguagebehavioralsimulation</spirit:viewNameRef>
+            </spirit:wireTypeDef>
+          </spirit:wireTypeDefs>
+          <spirit:driver>
+            <spirit:defaultValue spirit:format="long">0</spirit:defaultValue>
+          </spirit:driver>
+        </spirit:wire>
+      </spirit:port>
+      <spirit:port>
+        <spirit:name>M_AXI_IMEM_rid</spirit:name>
+        <spirit:wire>
+          <spirit:direction>in</spirit:direction>
+          <spirit:vector>
+            <spirit:left spirit:format="long">3</spirit:left>
+            <spirit:right spirit:format="long">0</spirit:right>
+          </spirit:vector>
+          <spirit:wireTypeDefs>
+            <spirit:wireTypeDef>
+              <spirit:typeName>std_logic_vector</spirit:typeName>
+              <spirit:viewNameRef>xilinx_anylanguagesynthesis</spirit:viewNameRef>
+              <spirit:viewNameRef>xilinx_anylanguagebehavioralsimulation</spirit:viewNameRef>
+            </spirit:wireTypeDef>
+          </spirit:wireTypeDefs>
+          <spirit:driver>
+            <spirit:defaultValue spirit:format="long">0</spirit:defaultValue>
+          </spirit:driver>
+        </spirit:wire>
+      </spirit:port>
+      <spirit:port>
+        <spirit:name>M_AXI_IMEM_rlast</spirit:name>
         <spirit:wire>
           <spirit:direction>in</spirit:direction>
           <spirit:wireTypeDefs>
@@ -1230,7 +1178,59 @@
         </spirit:wire>
       </spirit:port>
       <spirit:port>
-        <spirit:name>cpu_dmem_master_araddr</spirit:name>
+        <spirit:name>M_AXI_IMEM_rresp</spirit:name>
+        <spirit:wire>
+          <spirit:direction>in</spirit:direction>
+          <spirit:vector>
+            <spirit:left spirit:format="long">1</spirit:left>
+            <spirit:right spirit:format="long">0</spirit:right>
+          </spirit:vector>
+          <spirit:wireTypeDefs>
+            <spirit:wireTypeDef>
+              <spirit:typeName>std_logic_vector</spirit:typeName>
+              <spirit:viewNameRef>xilinx_anylanguagesynthesis</spirit:viewNameRef>
+              <spirit:viewNameRef>xilinx_anylanguagebehavioralsimulation</spirit:viewNameRef>
+            </spirit:wireTypeDef>
+          </spirit:wireTypeDefs>
+          <spirit:driver>
+            <spirit:defaultValue spirit:format="long">0</spirit:defaultValue>
+          </spirit:driver>
+        </spirit:wire>
+      </spirit:port>
+      <spirit:port>
+        <spirit:name>M_AXI_IMEM_rvalid</spirit:name>
+        <spirit:wire>
+          <spirit:direction>in</spirit:direction>
+          <spirit:wireTypeDefs>
+            <spirit:wireTypeDef>
+              <spirit:typeName>std_logic</spirit:typeName>
+              <spirit:viewNameRef>xilinx_anylanguagesynthesis</spirit:viewNameRef>
+              <spirit:viewNameRef>xilinx_anylanguagebehavioralsimulation</spirit:viewNameRef>
+            </spirit:wireTypeDef>
+          </spirit:wireTypeDefs>
+          <spirit:driver>
+            <spirit:defaultValue spirit:format="long">0</spirit:defaultValue>
+          </spirit:driver>
+        </spirit:wire>
+      </spirit:port>
+      <spirit:port>
+        <spirit:name>M_AXI_IMEM_wready</spirit:name>
+        <spirit:wire>
+          <spirit:direction>in</spirit:direction>
+          <spirit:wireTypeDefs>
+            <spirit:wireTypeDef>
+              <spirit:typeName>std_logic</spirit:typeName>
+              <spirit:viewNameRef>xilinx_anylanguagesynthesis</spirit:viewNameRef>
+              <spirit:viewNameRef>xilinx_anylanguagebehavioralsimulation</spirit:viewNameRef>
+            </spirit:wireTypeDef>
+          </spirit:wireTypeDefs>
+          <spirit:driver>
+            <spirit:defaultValue spirit:format="long">0</spirit:defaultValue>
+          </spirit:driver>
+        </spirit:wire>
+      </spirit:port>
+      <spirit:port>
+        <spirit:name>M_AXI_DMEM_araddr</spirit:name>
         <spirit:wire>
           <spirit:direction>out</spirit:direction>
           <spirit:vector>
@@ -1247,7 +1247,7 @@
         </spirit:wire>
       </spirit:port>
       <spirit:port>
-        <spirit:name>cpu_dmem_master_arburst</spirit:name>
+        <spirit:name>M_AXI_DMEM_arburst</spirit:name>
         <spirit:wire>
           <spirit:direction>out</spirit:direction>
           <spirit:vector>
@@ -1264,7 +1264,7 @@
         </spirit:wire>
       </spirit:port>
       <spirit:port>
-        <spirit:name>cpu_dmem_master_arcache</spirit:name>
+        <spirit:name>M_AXI_DMEM_arcache</spirit:name>
         <spirit:wire>
           <spirit:direction>out</spirit:direction>
           <spirit:vector>
@@ -1281,7 +1281,7 @@
         </spirit:wire>
       </spirit:port>
       <spirit:port>
-        <spirit:name>cpu_dmem_master_arid</spirit:name>
+        <spirit:name>M_AXI_DMEM_arid</spirit:name>
         <spirit:wire>
           <spirit:direction>out</spirit:direction>
           <spirit:vector>
@@ -1298,7 +1298,7 @@
         </spirit:wire>
       </spirit:port>
       <spirit:port>
-        <spirit:name>cpu_dmem_master_arlen</spirit:name>
+        <spirit:name>M_AXI_DMEM_arlen</spirit:name>
         <spirit:wire>
           <spirit:direction>out</spirit:direction>
           <spirit:vector>
@@ -1315,7 +1315,7 @@
         </spirit:wire>
       </spirit:port>
       <spirit:port>
-        <spirit:name>cpu_dmem_master_arlock</spirit:name>
+        <spirit:name>M_AXI_DMEM_arlock</spirit:name>
         <spirit:wire>
           <spirit:direction>out</spirit:direction>
           <spirit:wireTypeDefs>
@@ -1328,7 +1328,7 @@
         </spirit:wire>
       </spirit:port>
       <spirit:port>
-        <spirit:name>cpu_dmem_master_arprot</spirit:name>
+        <spirit:name>M_AXI_DMEM_arprot</spirit:name>
         <spirit:wire>
           <spirit:direction>out</spirit:direction>
           <spirit:vector>
@@ -1345,7 +1345,7 @@
         </spirit:wire>
       </spirit:port>
       <spirit:port>
-        <spirit:name>cpu_dmem_master_arqos</spirit:name>
+        <spirit:name>M_AXI_DMEM_arqos</spirit:name>
         <spirit:wire>
           <spirit:direction>out</spirit:direction>
           <spirit:vector>
@@ -1362,7 +1362,7 @@
         </spirit:wire>
       </spirit:port>
       <spirit:port>
-        <spirit:name>cpu_dmem_master_arregion</spirit:name>
+        <spirit:name>M_AXI_DMEM_arregion</spirit:name>
         <spirit:wire>
           <spirit:direction>out</spirit:direction>
           <spirit:vector>
@@ -1379,7 +1379,7 @@
         </spirit:wire>
       </spirit:port>
       <spirit:port>
-        <spirit:name>cpu_dmem_master_arsize</spirit:name>
+        <spirit:name>M_AXI_DMEM_arsize</spirit:name>
         <spirit:wire>
           <spirit:direction>out</spirit:direction>
           <spirit:vector>
@@ -1396,7 +1396,7 @@
         </spirit:wire>
       </spirit:port>
       <spirit:port>
-        <spirit:name>cpu_dmem_master_arvalid</spirit:name>
+        <spirit:name>M_AXI_DMEM_arvalid</spirit:name>
         <spirit:wire>
           <spirit:direction>out</spirit:direction>
           <spirit:wireTypeDefs>
@@ -1409,7 +1409,7 @@
         </spirit:wire>
       </spirit:port>
       <spirit:port>
-        <spirit:name>cpu_dmem_master_awaddr</spirit:name>
+        <spirit:name>M_AXI_DMEM_awaddr</spirit:name>
         <spirit:wire>
           <spirit:direction>out</spirit:direction>
           <spirit:vector>
@@ -1426,7 +1426,7 @@
         </spirit:wire>
       </spirit:port>
       <spirit:port>
-        <spirit:name>cpu_dmem_master_awburst</spirit:name>
+        <spirit:name>M_AXI_DMEM_awburst</spirit:name>
         <spirit:wire>
           <spirit:direction>out</spirit:direction>
           <spirit:vector>
@@ -1443,7 +1443,7 @@
         </spirit:wire>
       </spirit:port>
       <spirit:port>
-        <spirit:name>cpu_dmem_master_awcache</spirit:name>
+        <spirit:name>M_AXI_DMEM_awcache</spirit:name>
         <spirit:wire>
           <spirit:direction>out</spirit:direction>
           <spirit:vector>
@@ -1460,7 +1460,7 @@
         </spirit:wire>
       </spirit:port>
       <spirit:port>
-        <spirit:name>cpu_dmem_master_awid</spirit:name>
+        <spirit:name>M_AXI_DMEM_awid</spirit:name>
         <spirit:wire>
           <spirit:direction>out</spirit:direction>
           <spirit:vector>
@@ -1477,7 +1477,7 @@
         </spirit:wire>
       </spirit:port>
       <spirit:port>
-        <spirit:name>cpu_dmem_master_awlen</spirit:name>
+        <spirit:name>M_AXI_DMEM_awlen</spirit:name>
         <spirit:wire>
           <spirit:direction>out</spirit:direction>
           <spirit:vector>
@@ -1494,7 +1494,7 @@
         </spirit:wire>
       </spirit:port>
       <spirit:port>
-        <spirit:name>cpu_dmem_master_awlock</spirit:name>
+        <spirit:name>M_AXI_DMEM_awlock</spirit:name>
         <spirit:wire>
           <spirit:direction>out</spirit:direction>
           <spirit:wireTypeDefs>
@@ -1507,7 +1507,7 @@
         </spirit:wire>
       </spirit:port>
       <spirit:port>
-        <spirit:name>cpu_dmem_master_awprot</spirit:name>
+        <spirit:name>M_AXI_DMEM_awprot</spirit:name>
         <spirit:wire>
           <spirit:direction>out</spirit:direction>
           <spirit:vector>
@@ -1524,7 +1524,7 @@
         </spirit:wire>
       </spirit:port>
       <spirit:port>
-        <spirit:name>cpu_dmem_master_awqos</spirit:name>
+        <spirit:name>M_AXI_DMEM_awqos</spirit:name>
         <spirit:wire>
           <spirit:direction>out</spirit:direction>
           <spirit:vector>
@@ -1541,7 +1541,7 @@
         </spirit:wire>
       </spirit:port>
       <spirit:port>
-        <spirit:name>cpu_dmem_master_awregion</spirit:name>
+        <spirit:name>M_AXI_DMEM_awregion</spirit:name>
         <spirit:wire>
           <spirit:direction>out</spirit:direction>
           <spirit:vector>
@@ -1558,7 +1558,7 @@
         </spirit:wire>
       </spirit:port>
       <spirit:port>
-        <spirit:name>cpu_dmem_master_awsize</spirit:name>
+        <spirit:name>M_AXI_DMEM_awsize</spirit:name>
         <spirit:wire>
           <spirit:direction>out</spirit:direction>
           <spirit:vector>
@@ -1575,7 +1575,7 @@
         </spirit:wire>
       </spirit:port>
       <spirit:port>
-        <spirit:name>cpu_dmem_master_awvalid</spirit:name>
+        <spirit:name>M_AXI_DMEM_awvalid</spirit:name>
         <spirit:wire>
           <spirit:direction>out</spirit:direction>
           <spirit:wireTypeDefs>
@@ -1588,7 +1588,7 @@
         </spirit:wire>
       </spirit:port>
       <spirit:port>
-        <spirit:name>cpu_dmem_master_bready</spirit:name>
+        <spirit:name>M_AXI_DMEM_bready</spirit:name>
         <spirit:wire>
           <spirit:direction>out</spirit:direction>
           <spirit:wireTypeDefs>
@@ -1601,7 +1601,7 @@
         </spirit:wire>
       </spirit:port>
       <spirit:port>
-        <spirit:name>cpu_dmem_master_rready</spirit:name>
+        <spirit:name>M_AXI_DMEM_rready</spirit:name>
         <spirit:wire>
           <spirit:direction>out</spirit:direction>
           <spirit:wireTypeDefs>
@@ -1614,7 +1614,7 @@
         </spirit:wire>
       </spirit:port>
       <spirit:port>
-        <spirit:name>cpu_dmem_master_wdata</spirit:name>
+        <spirit:name>M_AXI_DMEM_wdata</spirit:name>
         <spirit:wire>
           <spirit:direction>out</spirit:direction>
           <spirit:vector>
@@ -1631,7 +1631,7 @@
         </spirit:wire>
       </spirit:port>
       <spirit:port>
-        <spirit:name>cpu_dmem_master_wid</spirit:name>
+        <spirit:name>M_AXI_DMEM_wid</spirit:name>
         <spirit:wire>
           <spirit:direction>out</spirit:direction>
           <spirit:vector>
@@ -1648,7 +1648,7 @@
         </spirit:wire>
       </spirit:port>
       <spirit:port>
-        <spirit:name>cpu_dmem_master_wlast</spirit:name>
+        <spirit:name>M_AXI_DMEM_wlast</spirit:name>
         <spirit:wire>
           <spirit:direction>out</spirit:direction>
           <spirit:wireTypeDefs>
@@ -1661,7 +1661,7 @@
         </spirit:wire>
       </spirit:port>
       <spirit:port>
-        <spirit:name>cpu_dmem_master_wstrb</spirit:name>
+        <spirit:name>M_AXI_DMEM_wstrb</spirit:name>
         <spirit:wire>
           <spirit:direction>out</spirit:direction>
           <spirit:vector>
@@ -1678,7 +1678,7 @@
         </spirit:wire>
       </spirit:port>
       <spirit:port>
-        <spirit:name>cpu_dmem_master_wvalid</spirit:name>
+        <spirit:name>M_AXI_DMEM_wvalid</spirit:name>
         <spirit:wire>
           <spirit:direction>out</spirit:direction>
           <spirit:wireTypeDefs>
@@ -1691,7 +1691,7 @@
         </spirit:wire>
       </spirit:port>
       <spirit:port>
-        <spirit:name>cpu_imem_master_araddr</spirit:name>
+        <spirit:name>M_AXI_IMEM_araddr</spirit:name>
         <spirit:wire>
           <spirit:direction>out</spirit:direction>
           <spirit:vector>
@@ -1708,7 +1708,7 @@
         </spirit:wire>
       </spirit:port>
       <spirit:port>
-        <spirit:name>cpu_imem_master_arburst</spirit:name>
+        <spirit:name>M_AXI_IMEM_arburst</spirit:name>
         <spirit:wire>
           <spirit:direction>out</spirit:direction>
           <spirit:vector>
@@ -1725,7 +1725,7 @@
         </spirit:wire>
       </spirit:port>
       <spirit:port>
-        <spirit:name>cpu_imem_master_arcache</spirit:name>
+        <spirit:name>M_AXI_IMEM_arcache</spirit:name>
         <spirit:wire>
           <spirit:direction>out</spirit:direction>
           <spirit:vector>
@@ -1742,7 +1742,7 @@
         </spirit:wire>
       </spirit:port>
       <spirit:port>
-        <spirit:name>cpu_imem_master_arid</spirit:name>
+        <spirit:name>M_AXI_IMEM_arid</spirit:name>
         <spirit:wire>
           <spirit:direction>out</spirit:direction>
           <spirit:vector>
@@ -1759,7 +1759,7 @@
         </spirit:wire>
       </spirit:port>
       <spirit:port>
-        <spirit:name>cpu_imem_master_arlen</spirit:name>
+        <spirit:name>M_AXI_IMEM_arlen</spirit:name>
         <spirit:wire>
           <spirit:direction>out</spirit:direction>
           <spirit:vector>
@@ -1776,7 +1776,7 @@
         </spirit:wire>
       </spirit:port>
       <spirit:port>
-        <spirit:name>cpu_imem_master_arlock</spirit:name>
+        <spirit:name>M_AXI_IMEM_arlock</spirit:name>
         <spirit:wire>
           <spirit:direction>out</spirit:direction>
           <spirit:wireTypeDefs>
@@ -1789,7 +1789,7 @@
         </spirit:wire>
       </spirit:port>
       <spirit:port>
-        <spirit:name>cpu_imem_master_arprot</spirit:name>
+        <spirit:name>M_AXI_IMEM_arprot</spirit:name>
         <spirit:wire>
           <spirit:direction>out</spirit:direction>
           <spirit:vector>
@@ -1806,7 +1806,7 @@
         </spirit:wire>
       </spirit:port>
       <spirit:port>
-        <spirit:name>cpu_imem_master_arqos</spirit:name>
+        <spirit:name>M_AXI_IMEM_arqos</spirit:name>
         <spirit:wire>
           <spirit:direction>out</spirit:direction>
           <spirit:vector>
@@ -1823,7 +1823,7 @@
         </spirit:wire>
       </spirit:port>
       <spirit:port>
-        <spirit:name>cpu_imem_master_arregion</spirit:name>
+        <spirit:name>M_AXI_IMEM_arregion</spirit:name>
         <spirit:wire>
           <spirit:direction>out</spirit:direction>
           <spirit:vector>
@@ -1840,7 +1840,7 @@
         </spirit:wire>
       </spirit:port>
       <spirit:port>
-        <spirit:name>cpu_imem_master_arsize</spirit:name>
+        <spirit:name>M_AXI_IMEM_arsize</spirit:name>
         <spirit:wire>
           <spirit:direction>out</spirit:direction>
           <spirit:vector>
@@ -1857,7 +1857,7 @@
         </spirit:wire>
       </spirit:port>
       <spirit:port>
-        <spirit:name>cpu_imem_master_arvalid</spirit:name>
+        <spirit:name>M_AXI_IMEM_arvalid</spirit:name>
         <spirit:wire>
           <spirit:direction>out</spirit:direction>
           <spirit:wireTypeDefs>
@@ -1870,7 +1870,7 @@
         </spirit:wire>
       </spirit:port>
       <spirit:port>
-        <spirit:name>cpu_imem_master_awaddr</spirit:name>
+        <spirit:name>M_AXI_IMEM_awaddr</spirit:name>
         <spirit:wire>
           <spirit:direction>out</spirit:direction>
           <spirit:vector>
@@ -1887,7 +1887,7 @@
         </spirit:wire>
       </spirit:port>
       <spirit:port>
-        <spirit:name>cpu_imem_master_awburst</spirit:name>
+        <spirit:name>M_AXI_IMEM_awburst</spirit:name>
         <spirit:wire>
           <spirit:direction>out</spirit:direction>
           <spirit:vector>
@@ -1904,7 +1904,7 @@
         </spirit:wire>
       </spirit:port>
       <spirit:port>
-        <spirit:name>cpu_imem_master_awcache</spirit:name>
+        <spirit:name>M_AXI_IMEM_awcache</spirit:name>
         <spirit:wire>
           <spirit:direction>out</spirit:direction>
           <spirit:vector>
@@ -1921,7 +1921,7 @@
         </spirit:wire>
       </spirit:port>
       <spirit:port>
-        <spirit:name>cpu_imem_master_awid</spirit:name>
+        <spirit:name>M_AXI_IMEM_awid</spirit:name>
         <spirit:wire>
           <spirit:direction>out</spirit:direction>
           <spirit:vector>
@@ -1938,7 +1938,7 @@
         </spirit:wire>
       </spirit:port>
       <spirit:port>
-        <spirit:name>cpu_imem_master_awlen</spirit:name>
+        <spirit:name>M_AXI_IMEM_awlen</spirit:name>
         <spirit:wire>
           <spirit:direction>out</spirit:direction>
           <spirit:vector>
@@ -1955,7 +1955,7 @@
         </spirit:wire>
       </spirit:port>
       <spirit:port>
-        <spirit:name>cpu_imem_master_awlock</spirit:name>
+        <spirit:name>M_AXI_IMEM_awlock</spirit:name>
         <spirit:wire>
           <spirit:direction>out</spirit:direction>
           <spirit:wireTypeDefs>
@@ -1968,7 +1968,7 @@
         </spirit:wire>
       </spirit:port>
       <spirit:port>
-        <spirit:name>cpu_imem_master_awprot</spirit:name>
+        <spirit:name>M_AXI_IMEM_awprot</spirit:name>
         <spirit:wire>
           <spirit:direction>out</spirit:direction>
           <spirit:vector>
@@ -1985,7 +1985,7 @@
         </spirit:wire>
       </spirit:port>
       <spirit:port>
-        <spirit:name>cpu_imem_master_awqos</spirit:name>
+        <spirit:name>M_AXI_IMEM_awqos</spirit:name>
         <spirit:wire>
           <spirit:direction>out</spirit:direction>
           <spirit:vector>
@@ -2002,7 +2002,7 @@
         </spirit:wire>
       </spirit:port>
       <spirit:port>
-        <spirit:name>cpu_imem_master_awregion</spirit:name>
+        <spirit:name>M_AXI_IMEM_awregion</spirit:name>
         <spirit:wire>
           <spirit:direction>out</spirit:direction>
           <spirit:vector>
@@ -2019,7 +2019,7 @@
         </spirit:wire>
       </spirit:port>
       <spirit:port>
-        <spirit:name>cpu_imem_master_awsize</spirit:name>
+        <spirit:name>M_AXI_IMEM_awsize</spirit:name>
         <spirit:wire>
           <spirit:direction>out</spirit:direction>
           <spirit:vector>
@@ -2036,7 +2036,7 @@
         </spirit:wire>
       </spirit:port>
       <spirit:port>
-        <spirit:name>cpu_imem_master_awvalid</spirit:name>
+        <spirit:name>M_AXI_IMEM_awvalid</spirit:name>
         <spirit:wire>
           <spirit:direction>out</spirit:direction>
           <spirit:wireTypeDefs>
@@ -2049,7 +2049,7 @@
         </spirit:wire>
       </spirit:port>
       <spirit:port>
-        <spirit:name>cpu_imem_master_bready</spirit:name>
+        <spirit:name>M_AXI_IMEM_bready</spirit:name>
         <spirit:wire>
           <spirit:direction>out</spirit:direction>
           <spirit:wireTypeDefs>
@@ -2062,7 +2062,7 @@
         </spirit:wire>
       </spirit:port>
       <spirit:port>
-        <spirit:name>cpu_imem_master_rready</spirit:name>
+        <spirit:name>M_AXI_IMEM_rready</spirit:name>
         <spirit:wire>
           <spirit:direction>out</spirit:direction>
           <spirit:wireTypeDefs>
@@ -2075,7 +2075,7 @@
         </spirit:wire>
       </spirit:port>
       <spirit:port>
-        <spirit:name>cpu_imem_master_wdata</spirit:name>
+        <spirit:name>M_AXI_IMEM_wdata</spirit:name>
         <spirit:wire>
           <spirit:direction>out</spirit:direction>
           <spirit:vector>
@@ -2092,7 +2092,7 @@
         </spirit:wire>
       </spirit:port>
       <spirit:port>
-        <spirit:name>cpu_imem_master_wid</spirit:name>
+        <spirit:name>M_AXI_IMEM_wid</spirit:name>
         <spirit:wire>
           <spirit:direction>out</spirit:direction>
           <spirit:vector>
@@ -2109,7 +2109,7 @@
         </spirit:wire>
       </spirit:port>
       <spirit:port>
-        <spirit:name>cpu_imem_master_wlast</spirit:name>
+        <spirit:name>M_AXI_IMEM_wlast</spirit:name>
         <spirit:wire>
           <spirit:direction>out</spirit:direction>
           <spirit:wireTypeDefs>
@@ -2122,7 +2122,7 @@
         </spirit:wire>
       </spirit:port>
       <spirit:port>
-        <spirit:name>cpu_imem_master_wstrb</spirit:name>
+        <spirit:name>M_AXI_IMEM_wstrb</spirit:name>
         <spirit:wire>
           <spirit:direction>out</spirit:direction>
           <spirit:vector>
@@ -2139,7 +2139,7 @@
         </spirit:wire>
       </spirit:port>
       <spirit:port>
-        <spirit:name>cpu_imem_master_wvalid</spirit:name>
+        <spirit:name>M_AXI_IMEM_wvalid</spirit:name>
         <spirit:wire>
           <spirit:direction>out</spirit:direction>
           <spirit:wireTypeDefs>
