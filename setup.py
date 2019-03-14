@@ -35,14 +35,15 @@
 from setuptools import setup, find_packages
 
 import os
-
-jupyter_dest = '/home/xilinx/jupyter_notebooks'
+import site
+pkgname = 'riscvonpynq'
+jupyter_dest = os.path.join('/', pkgname, 'notebooks')
 notebooks_root = 'notebooks'
 data_files = []
 
 # Find all of the tutorial notebooks in the tutorials_src path
 tutorials_src = os.path.join(notebooks_root, 'tutorial')
-tutorials_dest = os.path.join(jupyter_dest, 'RISC-V-Tutorial')
+tutorials_dest = os.path.join(jupyter_dest, 'Tutorial')
 tutorials = [os.path.join(tutorials_src, f)
              for f in os.listdir(tutorials_src)
              if f.endswith(".ipynb")]
@@ -57,13 +58,13 @@ pictures = [os.path.join(pictures_src, f)
 data_files.append((pictures_dest, pictures))
 
 examples_src = os.path.join(notebooks_root, 'examples')
-examples_dest = os.path.join(jupyter_dest, 'RISC-V-Examples')
+examples_dest = os.path.join(jupyter_dest, 'Examples')
 examples = [os.path.join(examples_src, f)
              for f in os.listdir(examples_src)
              if f.endswith(".ipynb")]
 data_files.append((examples_dest, examples))
 
-setup(name='riscvonpynq',
+setup(name=pkgname,
       version='0.1',
       description="A simple package describing how to create a RISC-V FPGA bitstream\
             and package it as a PYNQ overlay",
@@ -77,3 +78,9 @@ setup(name='riscvonpynq',
       install_requires=['pynq'],
       dependency_links=['http://github.com/xilinx/PYNQ.git@v2.1#egg=pynq'],
 )
+
+nbsrc = os.path.join(site.getsitepackages()[0], pkgname, 'notebooks')
+nbdest = os.path.join(os.environ['PYNQ_JUPYTER_NOTEBOOKS'], 'RISC-V-On-PYNQ')
+if(not os.path.exists(nbdest)):
+    print(os.path.exists(nbdest))
+    os.symlink(nbsrc, nbdest)
