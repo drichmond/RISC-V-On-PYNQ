@@ -134,7 +134,11 @@ proc create_hier_cell_cortexm1_1 { parentCell nameHier } {
   # Create instance: cortexm1, and set properties
   set cortexm1 [ create_bd_cell -type ip -vlnv arm.com:CortexM:CORTEXM1_AXI:1.1 cortexm1 ]
   set_property -dict [ list \
+   CONFIG.DEBUG_SEL {0} \
+   CONFIG.DTCM_INIT_FILE {} \
    CONFIG.DTCM_INIT_RAM {false} \
+   CONFIG.ITCM_INIT_FILE {} \
+   CONFIG.ITCM_INIT_RAM {false} \
    CONFIG.ITCM_SIZE {"0110"} \
  ] $cortexm1
 
@@ -1224,11 +1228,11 @@ proc create_root_design { parentCell } {
 
   # Create address segments
   create_bd_addr_seg -range 0x00010000 -offset 0x40010000 [get_bd_addr_spaces processing_system7_0/Data] [get_bd_addr_segs cortexm1/psBramController/S_AXI/Mem0] SEG_psBramController_Mem0
-  create_bd_addr_seg -range 0x00010000 -offset 0x80000000 [get_bd_addr_spaces processing_system7_0/Data] [get_bd_addr_segs psInterruptController/S_AXI/Reg] SEG_psInterruptController_Reg
+  create_bd_addr_seg -range 0x00020000 -offset 0x80000000 [get_bd_addr_spaces processing_system7_0/Data] [get_bd_addr_segs psInterruptController/S_AXI/Reg] SEG_psInterruptController_Reg
   create_bd_addr_seg -range 0x00001000 -offset 0x40001000 [get_bd_addr_spaces processing_system7_0/Data] [get_bd_addr_segs subprocessorClk/s_axi_lite/Reg] SEG_subprocessorClk_Reg
   create_bd_addr_seg -range 0x00010000 -offset 0x40010000 [get_bd_addr_spaces cortexm1/cortexm1/CM1_AXI3] [get_bd_addr_segs cortexm1/psBramController/S_AXI/Mem0] SEG_psBramController_Mem0
-  create_bd_addr_seg -range 0x00010000 -offset 0x80000000 [get_bd_addr_spaces cortexm1/cortexm1/CM1_AXI3] [get_bd_addr_segs psInterruptController/S_AXI/Reg] SEG_psInterruptController_Reg
-  create_bd_addr_seg -range 0x00010000 -offset 0x00000000 [get_bd_addr_spaces cortexm1/cortexm1/CM1_AXI3] [get_bd_addr_segs cortexm1/spBramController/S_AXI/Mem0] SEG_riscvBramController_Mem0
+  create_bd_addr_seg -range 0x00020000 -offset 0x80000000 [get_bd_addr_spaces cortexm1/cortexm1/CM1_AXI3] [get_bd_addr_segs psInterruptController/S_AXI/Reg] SEG_psInterruptController_Reg
+  create_bd_addr_seg -range 0x00020000 -offset 0x00000000 [get_bd_addr_spaces cortexm1/cortexm1/CM1_AXI3] [get_bd_addr_segs cortexm1/spBramController/S_AXI/Mem0] SEG_riscvBramController_Mem0
   create_bd_addr_seg -range 0x00001000 -offset 0x40001000 [get_bd_addr_spaces cortexm1/cortexm1/CM1_AXI3] [get_bd_addr_segs subprocessorClk/s_axi_lite/Reg] SEG_subprocessorClk_Reg
 
 

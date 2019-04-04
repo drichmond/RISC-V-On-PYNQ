@@ -2,11 +2,11 @@
 # Vivado v2017.4 (64-bit)
 # SW Build 2086221 on Fri Dec 15 20:55:39 MST 2017
 # IP Build 2085800 on Fri Dec 15 22:25:07 MST 2017
-# Start of session at: Sun Feb 17 05:13:45 2019
-# Process ID: 7136
-# Current directory: C:/Sivasankar/UCSD/Fall2018/pynq/arm1/RISC-V-On-PYNQ/riscvonpynq/cortexm1/tcm
+# Start of session at: Thu Mar 21 23:40:20 2019
+# Process ID: 7812
+# Current directory: C:/Sivasankar/pynq/arm/RISC-V-On-PYNQ/riscvonpynq/cortexm1/tcm
 # Command line: vivado.exe -mode batch -source ../..//build.tcl -tclargs cortexm1 single xc7z020clg400-1 PYNQ-Z1 ../../../cortexm1/
-# Log file: C:/Sivasankar/UCSD/Fall2018/pynq/arm1/RISC-V-On-PYNQ/riscvonpynq/cortexm1/tcm/vivado.log
-# Journal file: C:/Sivasankar/UCSD/Fall2018/pynq/arm1/RISC-V-On-PYNQ/riscvonpynq/cortexm1/tcm\vivado.jou
+# Log file: C:/Sivasankar/pynq/arm/RISC-V-On-PYNQ/riscvonpynq/cortexm1/tcm/vivado.log
+# Journal file: C:/Sivasankar/pynq/arm/RISC-V-On-PYNQ/riscvonpynq/cortexm1/tcm\vivado.jou
 #-----------------------------------------------------------
 source ../..//build.tcl

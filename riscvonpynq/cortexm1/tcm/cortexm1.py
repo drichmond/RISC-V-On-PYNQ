@@ -35,7 +35,7 @@ class Processor(cortexm1):
     """
     _name = 'cortexm1'
     _proc = 'cortexm1'
-    _reset_name = 'soft_processor_resetn'
+    _reset_name = 'riscv_resetn'
     _bits = 32
     @classmethod
     def checkhierarchy(cls, description):
