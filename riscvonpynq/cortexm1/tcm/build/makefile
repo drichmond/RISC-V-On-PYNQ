@@ -1,4 +1,4 @@
-CFLAGS =-Wall --std=c99 -ffreestanding -nostdlib -marm -mtune=cortex-m1
+CFLAGS = -Wall --std=c99 -ffreestanding -nostdlib -marm -mtune=cortex-m1
 all: $(TARGET).bin
 
 init.o: init.S
@@ -8,7 +8,7 @@ init.o: init.S
 
 %.elf: system.o init.o %.o
 	@echo "Combining object files $< to produce $@"
-	gcc $(CFLAGS) $< -o $@
+	gcc -static -ffreestanding -nostdlib -marm -mtune=cortex-m1 $< -o $@
 
 %.o: %.c
 	@echo "Building object file $@ for $<"
