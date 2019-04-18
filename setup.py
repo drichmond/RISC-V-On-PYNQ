@@ -73,7 +73,7 @@ setup(name='riscvonpynq',
       license='BSD-3',
       data_files = data_files,
       packages=find_packages(),
-      package_data={'':['*.bit', '*.tcl', '*.hwh', '*.S', '*.ld', 'makefile']},
+      package_data={'':['*.bit', '*.tcl', '*.hwh', '*.S', '*.c', '*.h', '*.ld', 'makefile']},
       install_requires=['pynq'],
       dependency_links=['http://github.com/xilinx/PYNQ.git@v2.1#egg=pynq'],
 )
