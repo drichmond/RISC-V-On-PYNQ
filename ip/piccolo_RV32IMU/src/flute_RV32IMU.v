@@ -1,4 +1,4 @@
-module piccolo_RV32IMU(
+module flute_RV32IMU(
                        // Beginning of automatic inputs (from unused autoinst inputs)
                        input           CLK,                    // To core_inst of mkCore.v
                        input           RST_N,                  // To core_inst of mkCore.v
@@ -88,11 +88,10 @@ module piccolo_RV32IMU(
                        // End of automatics
                        );
 
-    reg                                rResetOnce;
-    
-    wire                               RDY_cpu_reset_server_request_put; // Ready
-    wire                               RDY_cpu_reset_server_response_get = 1'b1;
-    wire                               EN_cpu_reset_server_request_put; // Valid
+
+    wire                               RDY_cpu_reset_server_request_put;
+    wire                               RDY_cpu_reset_server_response_get;
+    wire                               EN_cpu_reset_server_request_put = RDY_cpu_reset_server_response_get;
     wire                               EN_cpu_reset_server_response_get;
     wire [63:0]                        cpu_slave_araddr;
     wire [1:0]                         cpu_slave_arburst;
@@ -139,14 +138,7 @@ module piccolo_RV32IMU(
     wire [63:0]                        set_verbosity_logdelay = 64'h0;
     wire [3:0]                         set_verbosity_verbosity = 4'h0;
     wire                               RDY_set_verbosity;
-    always @(posedge CLK) begin
-        if(RST_N) begin
-            rResetOnce <= 1;
-        end else begin
-            rResetOnce <= rResetOnce & ~RDY_cpu_reset_server_request_put;
-        end
-    end
-
+    
     mkCore 
         core_inst
     (
