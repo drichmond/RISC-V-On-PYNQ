@@ -118,13 +118,13 @@ proc create_hier_cell_cortexm1_1 { parentCell nameHier } {
   current_bd_instance $hier_obj
 
   # Create interface pins
+  create_bd_intf_pin -mode Master -vlnv xilinx.com:interface:aximm_rtl:1.0 M_AXI
   create_bd_intf_pin -mode Slave -vlnv xilinx.com:interface:aximm_rtl:1.0 S_AXI_MEM
-  create_bd_intf_pin -mode Master -vlnv xilinx.com:interface:aximm_rtl:1.0 m_axi3
 
   # Create pins
   create_bd_pin -dir O irq
-  create_bd_pin -dir O m_axi3_aclk
-  create_bd_pin -dir O -from 0 -to 0 m_axi3_aresetn
+  create_bd_pin -dir O m_axi_aclk
+  create_bd_pin -dir O -from 0 -to 0 m_axi_aresetn
   create_bd_pin -dir I -type rst por_resetn
   create_bd_pin -dir I -type clk riscv_clk
   create_bd_pin -dir I -type rst riscv_resetn
@@ -137,9 +137,12 @@ proc create_hier_cell_cortexm1_1 { parentCell nameHier } {
    CONFIG.DEBUG_SEL {0} \
    CONFIG.DTCM_INIT_FILE {} \
    CONFIG.DTCM_INIT_RAM {false} \
+   CONFIG.DTCM_SIZE {"0100"} \
    CONFIG.ITCM_INIT_FILE {} \
    CONFIG.ITCM_INIT_RAM {false} \
-   CONFIG.ITCM_SIZE {"0110"} \
+   CONFIG.ITCM_SIZE {"0100"} \
+   CONFIG.OS {false} \
+   CONFIG.SMALL_DEBUG {false} \
  ] $cortexm1
 
   # Create instance: itcmSelConst, and set properties
@@ -202,18 +205,18 @@ proc create_hier_cell_cortexm1_1 { parentCell nameHier } {
   connect_bd_intf_net -intf_net CORTEXM1_AXI_0_CM1_AXI3 [get_bd_intf_pins cortexm1/CM1_AXI3] [get_bd_intf_pins spAxiInterconnect/S00_AXI]
   connect_bd_intf_net -intf_net Conn2 [get_bd_intf_pins S_AXI_MEM] [get_bd_intf_pins psBramController/S_AXI]
   connect_bd_intf_net -intf_net axi_interconnect_0_M00_AXI [get_bd_intf_pins spAxiInterconnect/M00_AXI] [get_bd_intf_pins spBramController/S_AXI]
-  connect_bd_intf_net -intf_net axi_interconnect_0_M01_AXI [get_bd_intf_pins m_axi3] [get_bd_intf_pins spAxiInterconnect/M01_AXI]
+  connect_bd_intf_net -intf_net axi_interconnect_0_M01_AXI [get_bd_intf_pins M_AXI] [get_bd_intf_pins spAxiInterconnect/M01_AXI]
   connect_bd_intf_net -intf_net psBramController_BRAM_PORTA [get_bd_intf_pins psBramController/BRAM_PORTA] [get_bd_intf_pins spBram/BRAM_PORTB]
   connect_bd_intf_net -intf_net riscvBramController_BRAM_PORTA [get_bd_intf_pins spBram/BRAM_PORTA] [get_bd_intf_pins spBramController/BRAM_PORTA]
 
   # Create port connections
-  connect_bd_net -net CORTEXM1_AXI_0_SYSRESETREQ [get_bd_pins irq] [get_bd_pins cortexm1/SYSRESETREQ]
   connect_bd_net -net aux_reset_in_1 [get_bd_pins riscv_resetn] [get_bd_pins spReset/aux_reset_in]
   connect_bd_net -net ext_reset_in_1 [get_bd_pins por_resetn] [get_bd_pins spReset/ext_reset_in]
-  connect_bd_net -net riscvReset_peripheral_aresetn [get_bd_pins m_axi3_aresetn] [get_bd_pins cortexm1/SYSRESETn] [get_bd_pins spAxiInterconnect/ARESETN] [get_bd_pins spAxiInterconnect/M00_ARESETN] [get_bd_pins spAxiInterconnect/M01_ARESETN] [get_bd_pins spAxiInterconnect/S00_ARESETN] [get_bd_pins spBramController/s_axi_aresetn] [get_bd_pins spReset/peripheral_aresetn]
+  connect_bd_net -net riscvReset_peripheral_aresetn [get_bd_pins m_axi_aresetn] [get_bd_pins cortexm1/SYSRESETn] [get_bd_pins spAxiInterconnect/M00_ARESETN] [get_bd_pins spAxiInterconnect/M01_ARESETN] [get_bd_pins spAxiInterconnect/S00_ARESETN] [get_bd_pins spBramController/s_axi_aresetn] [get_bd_pins spReset/peripheral_aresetn]
   connect_bd_net -net s_axi_aclk_1 [get_bd_pins s_axi_aclk] [get_bd_pins psBramController/s_axi_aclk]
   connect_bd_net -net s_axi_aresetn_1 [get_bd_pins s_axi_aresetn] [get_bd_pins psBramController/s_axi_aresetn]
-  connect_bd_net -net subprocessorClk [get_bd_pins m_axi3_aclk] [get_bd_pins riscv_clk] [get_bd_pins cortexm1/HCLK] [get_bd_pins spAxiInterconnect/ACLK] [get_bd_pins spAxiInterconnect/M00_ACLK] [get_bd_pins spAxiInterconnect/M01_ACLK] [get_bd_pins spAxiInterconnect/S00_ACLK] [get_bd_pins spBramController/s_axi_aclk] [get_bd_pins spReset/slowest_sync_clk]
+  connect_bd_net -net spReset_interconnect_aresetn [get_bd_pins spAxiInterconnect/ARESETN] [get_bd_pins spReset/interconnect_aresetn]
+  connect_bd_net -net subprocessorClk [get_bd_pins m_axi_aclk] [get_bd_pins riscv_clk] [get_bd_pins cortexm1/HCLK] [get_bd_pins spAxiInterconnect/ACLK] [get_bd_pins spAxiInterconnect/M00_ACLK] [get_bd_pins spAxiInterconnect/M01_ACLK] [get_bd_pins spAxiInterconnect/S00_ACLK] [get_bd_pins spBramController/s_axi_aclk] [get_bd_pins spReset/slowest_sync_clk]
   connect_bd_net -net xlconstant_0_dout [get_bd_pins cortexm1/CFGITCMEN] [get_bd_pins itcmSelConst/dout]
 
   # Restore current instance
@@ -1209,12 +1212,13 @@ proc create_root_design { parentCell } {
   connect_bd_intf_net -intf_net processing_system7_0_M_AXI_GP1 [get_bd_intf_pins irqAxiInterconnect/S00_AXI] [get_bd_intf_pins processing_system7_0/M_AXI_GP1]
   connect_bd_intf_net -intf_net psAxiInterconnect_M00_AXI [get_bd_intf_pins cortexm1/S_AXI_MEM] [get_bd_intf_pins psAxiInterconnect/M00_AXI]
   connect_bd_intf_net -intf_net psAxiInterconnect_M01_AXI [get_bd_intf_pins psAxiInterconnect/M01_AXI] [get_bd_intf_pins subprocessorClk/s_axi_lite]
-  connect_bd_intf_net -intf_net tutorialProcessor_CM1_AXI3 [get_bd_intf_pins cortexm1/m_axi3] [get_bd_intf_pins irqAxiInterconnect/S01_AXI]
+  connect_bd_intf_net -intf_net tutorialProcessor_CM1_AXI3 [get_bd_intf_pins cortexm1/M_AXI] [get_bd_intf_pins irqAxiInterconnect/S01_AXI]
 
   # Create port connections
   connect_bd_net -net FCLK_CLK0 [get_bd_pins cortexm1/s_axi_aclk] [get_bd_pins irqAxiInterconnect/ACLK] [get_bd_pins irqAxiInterconnect/M00_ACLK] [get_bd_pins irqAxiInterconnect/S00_ACLK] [get_bd_pins porReset/slowest_sync_clk] [get_bd_pins processing_system7_0/FCLK_CLK0] [get_bd_pins processing_system7_0/M_AXI_GP0_ACLK] [get_bd_pins processing_system7_0/M_AXI_GP1_ACLK] [get_bd_pins psAxiInterconnect/ACLK] [get_bd_pins psAxiInterconnect/M00_ACLK] [get_bd_pins psAxiInterconnect/M01_ACLK] [get_bd_pins psAxiInterconnect/S00_ACLK] [get_bd_pins psInterruptController/s_axi_aclk] [get_bd_pins subprocessorClk/clk_in1] [get_bd_pins subprocessorClk/s_axi_aclk]
   connect_bd_net -net FCLK_CLK1 [get_bd_pins processing_system7_0/FCLK_CLK1] [get_bd_pins processing_system7_0/S_AXI_HP2_ACLK]
   connect_bd_net -net S00_ARESETN_1 [get_bd_pins cortexm1/s_axi_aresetn] [get_bd_pins irqAxiInterconnect/M00_ARESETN] [get_bd_pins irqAxiInterconnect/S00_ARESETN] [get_bd_pins porReset/peripheral_aresetn] [get_bd_pins psAxiInterconnect/M00_ARESETN] [get_bd_pins psAxiInterconnect/M01_ARESETN] [get_bd_pins psAxiInterconnect/S00_ARESETN] [get_bd_pins psInterruptController/s_axi_aresetn] [get_bd_pins subprocessorClk/s_axi_aresetn]
+  connect_bd_net -net S01_ARESETN_1 [get_bd_pins cortexm1/m_axi_aresetn] [get_bd_pins irqAxiInterconnect/S01_ARESETN]
   connect_bd_net -net irq [get_bd_pins cortexm1/irq] [get_bd_pins irqConcat/In0]
   connect_bd_net -net porReset_interconnect_aresetn [get_bd_pins irqAxiInterconnect/ARESETN] [get_bd_pins porReset/interconnect_aresetn] [get_bd_pins psAxiInterconnect/ARESETN]
   connect_bd_net -net por_resetn [get_bd_pins cortexm1/por_resetn] [get_bd_pins porReset/ext_reset_in] [get_bd_pins processing_system7_0/FCLK_RESET0_N]
@@ -1222,8 +1226,7 @@ proc create_root_design { parentCell } {
   connect_bd_net -net psirq [get_bd_pins processing_system7_0/IRQ_F2P] [get_bd_pins psInterruptController/irq]
   connect_bd_net -net riscv_resetn [get_bd_pins cortexm1/riscv_resetn] [get_bd_pins resetSlice/Dout]
   connect_bd_net -net subprocessorClk [get_bd_pins cortexm1/riscv_clk] [get_bd_pins processing_system7_0/S_AXI_HP0_ACLK] [get_bd_pins subprocessorClk/clk_out1]
-  connect_bd_net -net tutorialProcessor_clock [get_bd_pins cortexm1/m_axi3_aclk] [get_bd_pins irqAxiInterconnect/S01_ACLK]
-  connect_bd_net -net tutorialProcessor_peripheral_aresetn [get_bd_pins cortexm1/m_axi3_aresetn] [get_bd_pins irqAxiInterconnect/S01_ARESETN]
+  connect_bd_net -net tutorialProcessor_clock [get_bd_pins cortexm1/m_axi_aclk] [get_bd_pins irqAxiInterconnect/S01_ACLK]
   connect_bd_net -net xlconcat_0_dout [get_bd_pins irqConcat/dout] [get_bd_pins psInterruptController/intr]
 
   # Create address segments
