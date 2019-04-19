@@ -1,5 +1,5 @@
 from riscvonpynq.Overlay import Overlay
-from riscvonpynq.Processor import cortexm1
+from riscvonpynq.Processor import BramProcessor
 import os
 import inspect
 
@@ -15,7 +15,7 @@ class Overlay(Overlay):
     """
     pass
 
-class Processor(cortexm1):
+class Processor(BramProcessor):
     """Hierarchy driver for the Microblaze LMB Processor
     Note
     ----

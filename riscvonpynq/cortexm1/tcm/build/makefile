@@ -5,8 +5,7 @@ all: $(TARGET).bin
 
 init.o: init.S
 	@echo "Building object file $@ for $<"
-	arm-linux-gnueabihf-gcc -c -Qn -marm -mtune=cortex-m1 $< -o $@ 
-
+	arm-linux-gnueabihf-gcc -c -Qn -D__STACK_SIZE=$(__STACK_SIZE) -marm -mtune=cortex-m1 $< -o $@ 
 
 %.elf: init.o %.o
 	@echo "Combining object files $< to produce $@"
