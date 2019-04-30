@@ -1,15 +1,15 @@
 STKPTR ?= 0x10000
 __STACK_SIZE = $(STKPTR)
-CFLAGS = -Wall --std=c99 -ffreestanding -nostdlib -marm -mtune=cortex-m1
+CFLAGS = -Wall --std=c99 -ffreestanding -nostdlib -mthumb -mcpu=cortex-m1  -msoft-float
 all: $(TARGET).bin
 
 init.o: init.S
 	@echo "Building object file $@ for $<"
-	arm-linux-gnueabihf-gcc -c -Qn -D__STACK_SIZE=$(__STACK_SIZE) -marm -mtune=cortex-m1 $< -o $@ 
+	arm-linux-gnueabihf-gcc -c -Qn -D__STACK_SIZE=$(__STACK_SIZE) $(CFLAGS) $< -o $@ 
 
-%.elf: init.o %.o
+%.elf: init.o  %.o
 	@echo "Combining object files $< to produce $@"
-	gcc -static -ffreestanding -nostdlib -marm -Wl,-Bstatic,-T,cortexm1.ld,--build-id=none \
+	gcc -static $(CFLAGS) -Wl,-Bstatic,-T,cortexm1.ld,--build-id=none \
 		-mtune=cortex-m1 $^ -o $@
 
 %.o: %.c
