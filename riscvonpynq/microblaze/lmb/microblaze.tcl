@@ -83,13 +83,13 @@ if { $bCheckIPsPassed != 1 } {
 ##################################################################
 
 
-# Hierarchical cell: microblazeLmbProcessor
-proc create_hier_cell_microblazeLmbProcessor { parentCell nameHier } {
+# Hierarchical cell: processor
+proc create_hier_cell_processor { parentCell nameHier } {
 
   variable script_folder
 
   if { $parentCell eq "" || $nameHier eq "" } {
-     catch {common::send_msg_id "BD_TCL-102" "ERROR" "create_hier_cell_microblazeLmbProcessor() - Empty argument(s)!"}
+     catch {common::send_msg_id "BD_TCL-102" "ERROR" "create_hier_cell_processor() - Empty argument(s)!"}
      return
   }
 
@@ -263,8 +263,8 @@ proc create_root_design { parentCell } {
    CONFIG.NUM_PORTS {1} \
  ] $irqConcat
 
-  # Create instance: microblazeLmbProcessor
-  create_hier_cell_microblazeLmbProcessor [current_bd_instance .] microblazeLmbProcessor
+  # Create instance: processor
+  create_hier_cell_processor [current_bd_instance .] processor
 
   # Create instance: porReset, and set properties
   set porReset [ create_bd_cell -type ip -vlnv xilinx.com:ip:proc_sys_reset:5.0 porReset ]
@@ -1184,34 +1184,34 @@ proc create_root_design { parentCell } {
   connect_bd_intf_net -intf_net M_AXI_CLK_B [get_bd_intf_pins psAxiInterconnect/M00_AXI] [get_bd_intf_pins softProcessorClk/s_axi_lite]
   connect_bd_intf_net -intf_net M_AXI_GP0_B [get_bd_intf_pins processing_system7_0/M_AXI_GP0] [get_bd_intf_pins psAxiInterconnect/S00_AXI]
   connect_bd_intf_net -intf_net M_AXI_GP1_B [get_bd_intf_pins irqAxiInterconnect/S00_AXI] [get_bd_intf_pins processing_system7_0/M_AXI_GP1]
-  connect_bd_intf_net -intf_net M_AXI_MEM_B [get_bd_intf_pins microblazeLmbProcessor/S_AXI_MEM] [get_bd_intf_pins psAxiInterconnect/M01_AXI]
+  connect_bd_intf_net -intf_net M_AXI_MEM_B [get_bd_intf_pins processor/S_AXI_MEM] [get_bd_intf_pins psAxiInterconnect/M01_AXI]
   connect_bd_intf_net -intf_net M_AXI_PSIRQ_B [get_bd_intf_pins irqAxiInterconnect/M00_AXI] [get_bd_intf_pins psInterruptController/s_axi]
-  connect_bd_intf_net -intf_net M_AXI_SPIRQ_B [get_bd_intf_pins irqAxiInterconnect/S01_AXI] [get_bd_intf_pins microblazeLmbProcessor/M_AXI_DUC]
+  connect_bd_intf_net -intf_net M_AXI_SPIRQ_B [get_bd_intf_pins irqAxiInterconnect/S01_AXI] [get_bd_intf_pins processor/M_AXI_DUC]
   connect_bd_intf_net -intf_net M_DDR_B [get_bd_intf_ports DDR] [get_bd_intf_pins processing_system7_0/DDR]
   connect_bd_intf_net -intf_net M_FIXEDIO_B [get_bd_intf_ports FIXED_IO] [get_bd_intf_pins processing_system7_0/FIXED_IO]
 
   # Create port connections
-  connect_bd_net -net FCLK_CLK0 [get_bd_pins irqAxiInterconnect/ACLK] [get_bd_pins irqAxiInterconnect/M00_ACLK] [get_bd_pins irqAxiInterconnect/S00_ACLK] [get_bd_pins microblazeLmbProcessor/s_axi_mem_aclk] [get_bd_pins porReset/slowest_sync_clk] [get_bd_pins processing_system7_0/FCLK_CLK0] [get_bd_pins processing_system7_0/M_AXI_GP0_ACLK] [get_bd_pins processing_system7_0/M_AXI_GP1_ACLK] [get_bd_pins psAxiInterconnect/ACLK] [get_bd_pins psAxiInterconnect/M00_ACLK] [get_bd_pins psAxiInterconnect/M01_ACLK] [get_bd_pins psAxiInterconnect/S00_ACLK] [get_bd_pins psInterruptController/s_axi_aclk] [get_bd_pins softProcessorClk/clk_in1] [get_bd_pins softProcessorClk/s_axi_aclk]
+  connect_bd_net -net FCLK_CLK0 [get_bd_pins irqAxiInterconnect/ACLK] [get_bd_pins irqAxiInterconnect/M00_ACLK] [get_bd_pins irqAxiInterconnect/S00_ACLK] [get_bd_pins processor/s_axi_mem_aclk] [get_bd_pins porReset/slowest_sync_clk] [get_bd_pins processing_system7_0/FCLK_CLK0] [get_bd_pins processing_system7_0/M_AXI_GP0_ACLK] [get_bd_pins processing_system7_0/M_AXI_GP1_ACLK] [get_bd_pins psAxiInterconnect/ACLK] [get_bd_pins psAxiInterconnect/M00_ACLK] [get_bd_pins psAxiInterconnect/M01_ACLK] [get_bd_pins psAxiInterconnect/S00_ACLK] [get_bd_pins psInterruptController/s_axi_aclk] [get_bd_pins softProcessorClk/clk_in1] [get_bd_pins softProcessorClk/s_axi_aclk]
   connect_bd_net -net FCLK_CLK1 [get_bd_pins processing_system7_0/FCLK_CLK1] [get_bd_pins processing_system7_0/S_AXI_HP2_ACLK]
-  connect_bd_net -net FCLK_RESET0_N [get_bd_pins microblazeLmbProcessor/por_resetn] [get_bd_pins porReset/ext_reset_in] [get_bd_pins processing_system7_0/FCLK_RESET0_N]
+  connect_bd_net -net FCLK_RESET0_N [get_bd_pins processor/por_resetn] [get_bd_pins porReset/ext_reset_in] [get_bd_pins processing_system7_0/FCLK_RESET0_N]
   connect_bd_net -net GPIO_0 [get_bd_pins processing_system7_0/GPIO_O] [get_bd_pins softProcessorResetSlice/Din]
   connect_bd_net -net IRQ_B [get_bd_pins irqConcat/dout] [get_bd_pins psInterruptController/intr]
   connect_bd_net -net irq_w [get_bd_pins processing_system7_0/IRQ_F2P] [get_bd_pins psInterruptController/irq]
-  connect_bd_net -net m_axi_duc_aclk_w [get_bd_pins irqAxiInterconnect/S01_ACLK] [get_bd_pins microblazeLmbProcessor/m_axi_duc_aclk]
-  connect_bd_net -net m_axi_duc_aresetn_w [get_bd_pins irqAxiInterconnect/S01_ARESETN] [get_bd_pins microblazeLmbProcessor/m_axi_duc_aresetn]
+  connect_bd_net -net m_axi_duc_aclk_w [get_bd_pins irqAxiInterconnect/S01_ACLK] [get_bd_pins processor/m_axi_duc_aclk]
+  connect_bd_net -net m_axi_duc_aresetn_w [get_bd_pins irqAxiInterconnect/S01_ARESETN] [get_bd_pins processor/m_axi_duc_aresetn]
   connect_bd_net -net por_interconnect_aresetn_w [get_bd_pins irqAxiInterconnect/ARESETN] [get_bd_pins porReset/interconnect_aresetn] [get_bd_pins psAxiInterconnect/ARESETN]
-  connect_bd_net -net por_peripheral_aresetn_w [get_bd_pins irqAxiInterconnect/M00_ARESETN] [get_bd_pins irqAxiInterconnect/S00_ARESETN] [get_bd_pins microblazeLmbProcessor/s_axi_mem_aresetn] [get_bd_pins porReset/peripheral_aresetn] [get_bd_pins psAxiInterconnect/M00_ARESETN] [get_bd_pins psAxiInterconnect/M01_ARESETN] [get_bd_pins psAxiInterconnect/S00_ARESETN] [get_bd_pins psInterruptController/s_axi_aresetn] [get_bd_pins softProcessorClk/s_axi_aresetn]
-  connect_bd_net -net soft_processor_clk_w [get_bd_pins microblazeLmbProcessor/soft_processor_clk] [get_bd_pins processing_system7_0/S_AXI_HP0_ACLK] [get_bd_pins softProcessorClk/clk_out1]
-  connect_bd_net -net soft_processor_irq_w [get_bd_pins irqConcat/In0] [get_bd_pins microblazeLmbProcessor/irq]
-  connect_bd_net -net soft_processor_reset_n [get_bd_pins microblazeLmbProcessor/soft_processor_resetn] [get_bd_pins softProcessorResetSlice/Dout]
+  connect_bd_net -net por_peripheral_aresetn_w [get_bd_pins irqAxiInterconnect/M00_ARESETN] [get_bd_pins irqAxiInterconnect/S00_ARESETN] [get_bd_pins processor/s_axi_mem_aresetn] [get_bd_pins porReset/peripheral_aresetn] [get_bd_pins psAxiInterconnect/M00_ARESETN] [get_bd_pins psAxiInterconnect/M01_ARESETN] [get_bd_pins psAxiInterconnect/S00_ARESETN] [get_bd_pins psInterruptController/s_axi_aresetn] [get_bd_pins softProcessorClk/s_axi_aresetn]
+  connect_bd_net -net soft_processor_clk_w [get_bd_pins processor/soft_processor_clk] [get_bd_pins processing_system7_0/S_AXI_HP0_ACLK] [get_bd_pins softProcessorClk/clk_out1]
+  connect_bd_net -net soft_processor_irq_w [get_bd_pins irqConcat/In0] [get_bd_pins processor/irq]
+  connect_bd_net -net soft_processor_reset_n [get_bd_pins processor/soft_processor_resetn] [get_bd_pins softProcessorResetSlice/Dout]
 
   # Create address segments
-  create_bd_addr_seg -range 0x00010000 -offset 0x40010000 [get_bd_addr_spaces processing_system7_0/Data] [get_bd_addr_segs microblazeLmbProcessor/psBramController/S_AXI/Mem0] SEG_psBramController_Mem0
+  create_bd_addr_seg -range 0x00010000 -offset 0x40010000 [get_bd_addr_spaces processing_system7_0/Data] [get_bd_addr_segs processor/psBramController/S_AXI/Mem0] SEG_psBramController_Mem0
   create_bd_addr_seg -range 0x00001000 -offset 0x80000000 [get_bd_addr_spaces processing_system7_0/Data] [get_bd_addr_segs psInterruptController/S_AXI/Reg] SEG_psInterruptController_Reg
   create_bd_addr_seg -range 0x00001000 -offset 0x40001000 [get_bd_addr_spaces processing_system7_0/Data] [get_bd_addr_segs softProcessorClk/s_axi_lite/Reg] SEG_subprocessorClk_Reg
-  create_bd_addr_seg -range 0x00001000 -offset 0x80000000 [get_bd_addr_spaces microblazeLmbProcessor/ublaze/Data] [get_bd_addr_segs psInterruptController/S_AXI/Reg] SEG_psInterruptController_Reg
-  create_bd_addr_seg -range 0x00010000 -offset 0x00000000 [get_bd_addr_spaces microblazeLmbProcessor/ublaze/Data] [get_bd_addr_segs microblazeLmbProcessor/softProcessorLmbCtrl/SLMB1/Mem] SEG_softProcessorLmbCtrl_Mem
-  create_bd_addr_seg -range 0x00010000 -offset 0x00000000 [get_bd_addr_spaces microblazeLmbProcessor/ublaze/Instruction] [get_bd_addr_segs microblazeLmbProcessor/softProcessorLmbCtrl/SLMB/Mem] SEG_softProcessorLmbCtrl_Mem
+  create_bd_addr_seg -range 0x00001000 -offset 0x80000000 [get_bd_addr_spaces processor/ublaze/Data] [get_bd_addr_segs psInterruptController/S_AXI/Reg] SEG_psInterruptController_Reg
+  create_bd_addr_seg -range 0x00010000 -offset 0x00000000 [get_bd_addr_spaces processor/ublaze/Data] [get_bd_addr_segs processor/softProcessorLmbCtrl/SLMB1/Mem] SEG_softProcessorLmbCtrl_Mem
+  create_bd_addr_seg -range 0x00010000 -offset 0x00000000 [get_bd_addr_spaces processor/ublaze/Instruction] [get_bd_addr_segs processor/softProcessorLmbCtrl/SLMB/Mem] SEG_softProcessorLmbCtrl_Mem
 
 
   # Restore current instance
@@ -1227,7 +1227,7 @@ proc available_tcl_procs { } {
    puts "##################################################################"
    puts "# Available Tcl procedures to recreate hierarchical blocks:"
    puts "#"
-   puts "#    create_hier_cell_microblazeLmbProcessor parentCell nameHier"
+   puts "#    create_hier_cell_processor parentCell nameHier"
    puts "#    create_root_design"
    puts "#"
    puts "#"
