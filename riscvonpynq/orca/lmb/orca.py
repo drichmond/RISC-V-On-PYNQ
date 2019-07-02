@@ -1,10 +1,10 @@
 from riscvonpynq.Overlay import Overlay
-from riscvonpynq.Processor import BramProcessor
+from riscvonpynq.Processor import LmbProcessor
 import os
 import inspect
 
-class TutorialOverlay(Overlay):
-    """Overlay driver for the PicoRV32 bram Overlay
+class Overlay(Overlay):
+    """Overlay driver for the Orca bram Overlay
 
     Note
     ----
@@ -17,8 +17,8 @@ class TutorialOverlay(Overlay):
     """
     pass
 
-class TutorialProcessor(BramProcessor):
-    """Hierarchy driver for the PicoRV32 BRAM Processor
+class Processor(LmbProcessor):
+    """Hierarchy driver for the Orca LMB Processor
 
     Note
     ----
@@ -31,15 +31,16 @@ class TutorialProcessor(BramProcessor):
 
     Subclasses of this module are responsible for setting _name (The
     name of the Hierarchy), _bits (Processor bit-width), _proc
-    (Processor Type Name)
+    (Processor Type Name, must match name of the linker script file
+    (.ld) in the build directory)
 
     This class must be placed in a known location relative to the
     build files for this processor. The relative path can be modified
     in __get_path.
 
     """
-    _name = 'tutorialProcessor'
-    _proc = 'picorv32'
+    _name = 'orcaLmbProcessor'
+    _proc = 'orca'
     _bits = 32
     @classmethod
     def checkhierarchy(cls, description):

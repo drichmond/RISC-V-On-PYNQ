@@ -9,7 +9,7 @@ init.o: init.S
 %.elf: init.o %.o
 	@echo "Combining object files $< to produce $@"
 	riscv32-unknown-elf-gcc -Os -ffreestanding -nostdlib -o $@ \
-		-Wl,-Bstatic,-T,picorv32.ld \
+		-Wl,-Bstatic,-T,orca.ld \
 		$^ -lgcc -march=rv32im 
 
 %.o: %.c 

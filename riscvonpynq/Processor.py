@@ -481,3 +481,5 @@ class BramProcessor(Processor):
         argv_buf[:] = arg_ptrs
         return (argv_buf, argv_ptr, arg_bufs, arg_ptrs)
 
+class LmbProcessor(BramProcessor):
+    pass
