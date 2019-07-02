@@ -47,6 +47,7 @@ ip:
 $(TARGETS): $(DESIGN) ip $(BUILD_PATH)/$(BOARD).xdc $(DESIGN).tcl
 	vivado -mode batch -source $(BUILD_PATH)/build.tcl -tclargs $(DESIGN) \
 		$@ $(PART) $(BOARD) $(IP_PATH)
+	cp ./$(DESIGN)/$(DESIGN).srcs/sources_1/bd/$(DESIGN)/hw_handoff/$(DESIGN).hwh $(DESIGN).hwh
 
 results:
 	grep Slack vivado.log > sweep.log
