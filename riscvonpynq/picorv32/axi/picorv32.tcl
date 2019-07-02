@@ -82,13 +82,13 @@ if { $bCheckIPsPassed != 1 } {
 ##################################################################
 
 
-# Hierarchical cell: picoAxiProcessor
-proc create_hier_cell_picoAxiProcessor { parentCell nameHier } {
+# Hierarchical cell: processor
+proc create_hier_cell_processor { parentCell nameHier } {
 
   variable script_folder
 
   if { $parentCell eq "" || $nameHier eq "" } {
-     catch {common::send_msg_id "BD_TCL-102" "ERROR" "create_hier_cell_picoAxiProcessor() - Empty argument(s)!"}
+     catch {common::send_msg_id "BD_TCL-102" "ERROR" "create_hier_cell_processor() - Empty argument(s)!"}
      return
   }
 
@@ -150,7 +150,7 @@ proc create_hier_cell_picoAxiProcessor { parentCell nameHier } {
    CONFIG.NUM_READ_OUTSTANDING {1} \
    CONFIG.NUM_WRITE_OUTSTANDING {1} \
    CONFIG.MAX_BURST_LENGTH {1} \
- ] [get_bd_intf_pins /picoAxiProcessor/picorv32/mem_axi]
+ ] [get_bd_intf_pins /processor/picorv32/mem_axi]
 
   # Create instance: psBramController, and set properties
   set psBramController [ create_bd_cell -type ip -vlnv xilinx.com:ip:axi_bram_ctrl:4.0 psBramController ]
@@ -270,8 +270,8 @@ proc create_root_design { parentCell } {
    CONFIG.NUM_PORTS {1} \
  ] $irqConcat
 
-  # Create instance: picoAxiProcessor
-  create_hier_cell_picoAxiProcessor [current_bd_instance .] picoAxiProcessor
+  # Create instance: processor
+  create_hier_cell_processor [current_bd_instance .] processor
 
   # Create instance: porReset, and set properties
   set porReset [ create_bd_cell -type ip -vlnv xilinx.com:ip:proc_sys_reset:5.0 porReset ]
@@ -1188,8 +1188,8 @@ proc create_root_design { parentCell } {
  ] $subprocessorClk
 
   # Create interface connections
-  connect_bd_intf_net -intf_net M_AXI_RISCV [get_bd_intf_pins picoAxiProcessor/M_AXI_RISCV] [get_bd_intf_pins processing_system7_0/S_AXI_HP0]
-  connect_bd_intf_net -intf_net S_AXI_MEM [get_bd_intf_pins picoAxiProcessor/S_AXI_MEM] [get_bd_intf_pins psAxiInterconnect/M02_AXI]
+  connect_bd_intf_net -intf_net M_AXI_RISCV [get_bd_intf_pins processor/M_AXI_RISCV] [get_bd_intf_pins processing_system7_0/S_AXI_HP0]
+  connect_bd_intf_net -intf_net S_AXI_MEM [get_bd_intf_pins processor/S_AXI_MEM] [get_bd_intf_pins psAxiInterconnect/M02_AXI]
   connect_bd_intf_net -intf_net S_AXI_PSX [get_bd_intf_pins processing_system7_0/M_AXI_GP0] [get_bd_intf_pins psAxiInterconnect/S00_AXI]
   connect_bd_intf_net -intf_net processing_system7_0_DDR [get_bd_intf_ports DDR] [get_bd_intf_pins processing_system7_0/DDR]
   connect_bd_intf_net -intf_net processing_system7_0_FIXED_IO [get_bd_intf_ports FIXED_IO] [get_bd_intf_pins processing_system7_0/FIXED_IO]
@@ -1197,25 +1197,25 @@ proc create_root_design { parentCell } {
   connect_bd_intf_net -intf_net psAxiInterconnect_M01_AXI [get_bd_intf_pins psAxiInterconnect/M01_AXI] [get_bd_intf_pins subprocessorClk/s_axi_lite]
 
   # Create port connections
-  connect_bd_net -net FCLK_CLK0 [get_bd_pins picoAxiProcessor/s_axi_aclk] [get_bd_pins porReset/slowest_sync_clk] [get_bd_pins processing_system7_0/FCLK_CLK0] [get_bd_pins processing_system7_0/M_AXI_GP0_ACLK] [get_bd_pins psAxiInterconnect/ACLK] [get_bd_pins psAxiInterconnect/M00_ACLK] [get_bd_pins psAxiInterconnect/M01_ACLK] [get_bd_pins psAxiInterconnect/M02_ACLK] [get_bd_pins psAxiInterconnect/S00_ACLK] [get_bd_pins psInterruptController/s_axi_aclk] [get_bd_pins subprocessorClk/clk_in1] [get_bd_pins subprocessorClk/s_axi_aclk]
+  connect_bd_net -net FCLK_CLK0 [get_bd_pins processor/s_axi_aclk] [get_bd_pins porReset/slowest_sync_clk] [get_bd_pins processing_system7_0/FCLK_CLK0] [get_bd_pins processing_system7_0/M_AXI_GP0_ACLK] [get_bd_pins psAxiInterconnect/ACLK] [get_bd_pins psAxiInterconnect/M00_ACLK] [get_bd_pins psAxiInterconnect/M01_ACLK] [get_bd_pins psAxiInterconnect/M02_ACLK] [get_bd_pins psAxiInterconnect/S00_ACLK] [get_bd_pins psInterruptController/s_axi_aclk] [get_bd_pins subprocessorClk/clk_in1] [get_bd_pins subprocessorClk/s_axi_aclk]
   connect_bd_net -net FCLK_CLK1 [get_bd_pins processing_system7_0/FCLK_CLK1] [get_bd_pins processing_system7_0/S_AXI_HP2_ACLK]
-  connect_bd_net -net S00_ARESETN_1 [get_bd_pins picoAxiProcessor/s_axi_aresetn] [get_bd_pins porReset/peripheral_aresetn] [get_bd_pins psAxiInterconnect/M00_ARESETN] [get_bd_pins psAxiInterconnect/M01_ARESETN] [get_bd_pins psAxiInterconnect/M02_ARESETN] [get_bd_pins psAxiInterconnect/S00_ARESETN] [get_bd_pins psInterruptController/s_axi_aresetn] [get_bd_pins subprocessorClk/s_axi_aresetn]
-  connect_bd_net -net irq [get_bd_pins irqConcat/In0] [get_bd_pins picoAxiProcessor/irq]
-  connect_bd_net -net m_axi_riscv_aclk [get_bd_pins picoAxiProcessor/m_axi_riscv_aclk] [get_bd_pins processing_system7_0/S_AXI_HP0_ACLK]
+  connect_bd_net -net S00_ARESETN_1 [get_bd_pins processor/s_axi_aresetn] [get_bd_pins porReset/peripheral_aresetn] [get_bd_pins psAxiInterconnect/M00_ARESETN] [get_bd_pins psAxiInterconnect/M01_ARESETN] [get_bd_pins psAxiInterconnect/M02_ARESETN] [get_bd_pins psAxiInterconnect/S00_ARESETN] [get_bd_pins psInterruptController/s_axi_aresetn] [get_bd_pins subprocessorClk/s_axi_aresetn]
+  connect_bd_net -net irq [get_bd_pins irqConcat/In0] [get_bd_pins processor/irq]
+  connect_bd_net -net m_axi_riscv_aclk [get_bd_pins processor/m_axi_riscv_aclk] [get_bd_pins processing_system7_0/S_AXI_HP0_ACLK]
   connect_bd_net -net porReset_interconnect_aresetn [get_bd_pins porReset/interconnect_aresetn] [get_bd_pins psAxiInterconnect/ARESETN]
-  connect_bd_net -net por_resetn [get_bd_pins picoAxiProcessor/por_resetn] [get_bd_pins porReset/ext_reset_in] [get_bd_pins processing_system7_0/FCLK_RESET0_N]
+  connect_bd_net -net por_resetn [get_bd_pins processor/por_resetn] [get_bd_pins porReset/ext_reset_in] [get_bd_pins processing_system7_0/FCLK_RESET0_N]
   connect_bd_net -net processing_system7_0_GPIO_O [get_bd_pins processing_system7_0/GPIO_O] [get_bd_pins resetSlice/Din]
   connect_bd_net -net psirq [get_bd_pins processing_system7_0/IRQ_F2P] [get_bd_pins psInterruptController/irq]
-  connect_bd_net -net subprocessorClk [get_bd_pins picoAxiProcessor/riscv_clk] [get_bd_pins subprocessorClk/clk_out1]
-  connect_bd_net -net riscv_resetn [get_bd_pins picoAxiProcessor/riscv_resetn] [get_bd_pins resetSlice/Dout]
+  connect_bd_net -net subprocessorClk [get_bd_pins processor/riscv_clk] [get_bd_pins subprocessorClk/clk_out1]
+  connect_bd_net -net riscv_resetn [get_bd_pins processor/riscv_resetn] [get_bd_pins resetSlice/Dout]
   connect_bd_net -net xlconcat_0_dout [get_bd_pins irqConcat/dout] [get_bd_pins psInterruptController/intr]
 
   # Create address segments
-  create_bd_addr_seg -range 0x00010000 -offset 0x40010000 [get_bd_addr_spaces processing_system7_0/Data] [get_bd_addr_segs picoAxiProcessor/psBramController/S_AXI/Mem0] SEG_psBramController_Mem0
+  create_bd_addr_seg -range 0x00010000 -offset 0x40010000 [get_bd_addr_spaces processing_system7_0/Data] [get_bd_addr_segs processor/psBramController/S_AXI/Mem0] SEG_psBramController_Mem0
   create_bd_addr_seg -range 0x00010000 -offset 0x40020000 [get_bd_addr_spaces processing_system7_0/Data] [get_bd_addr_segs psInterruptController/S_AXI/Reg] SEG_psInterruptController_Reg
   create_bd_addr_seg -range 0x00001000 -offset 0x40001000 [get_bd_addr_spaces processing_system7_0/Data] [get_bd_addr_segs subprocessorClk/s_axi_lite/Reg] SEG_subprocessorClk_Reg
-  create_bd_addr_seg -range 0x00010000 -offset 0x00000000 [get_bd_addr_spaces picoAxiProcessor/picorv32/mem_axi] [get_bd_addr_segs picoAxiProcessor/riscvBramController/S_AXI/Mem0] SEG_picorv32BramController_Mem0
-  create_bd_addr_seg -range 0x10000000 -offset 0x10000000 [get_bd_addr_spaces picoAxiProcessor/picorv32/mem_axi] [get_bd_addr_segs processing_system7_0/S_AXI_HP0/HP0_DDR_LOWOCM] SEG_processing_system7_0_HP0_DDR_LOWOCM
+  create_bd_addr_seg -range 0x00010000 -offset 0x00000000 [get_bd_addr_spaces processor/picorv32/mem_axi] [get_bd_addr_segs processor/riscvBramController/S_AXI/Mem0] SEG_picorv32BramController_Mem0
+  create_bd_addr_seg -range 0x10000000 -offset 0x10000000 [get_bd_addr_spaces processor/picorv32/mem_axi] [get_bd_addr_segs processing_system7_0/S_AXI_HP0/HP0_DDR_LOWOCM] SEG_processing_system7_0_HP0_DDR_LOWOCM
 
 
   # Restore current instance
@@ -1231,7 +1231,7 @@ proc available_tcl_procs { } {
    puts "##################################################################"
    puts "# Available Tcl procedures to recreate hierarchical blocks:"
    puts "#"
-   puts "#    create_hier_cell_picoAxiProcessor parentCell nameHier"
+   puts "#    create_hier_cell_processor parentCell nameHier"
    puts "#    create_root_design"
    puts "#"
    puts "#"
