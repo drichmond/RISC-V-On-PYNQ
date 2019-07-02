@@ -36,7 +36,7 @@ from setuptools import setup, find_packages
 
 import os
 
-jupyter_dest = '/home/xilinx/jupyter_notebooks'
+jupyter_dest = '//home/xilinx/jupyter_notebooks'
 notebooks_root = 'notebooks'
 data_files = []
 
