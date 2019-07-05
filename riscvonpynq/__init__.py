@@ -37,4 +37,4 @@ from . import magic
 from . import Program
 from . import Overlay
 from . import Processor
-from . import cortexm1
+from . import cortexm3

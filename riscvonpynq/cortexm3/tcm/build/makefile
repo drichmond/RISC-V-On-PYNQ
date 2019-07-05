@@ -1,6 +1,6 @@
 STKPTR ?= 0x10000
 __STACK_SIZE = $(STKPTR)
-CFLAGS = -Wall --std=c99 -ffreestanding -nostdlib -mthumb -mcpu=cortex-m1  -msoft-float
+CFLAGS = -Wall --std=c99 -ffreestanding -nostdlib -mthumb -mcpu=cortex-m3  -msoft-float
 all: $(TARGET).bin
 
 init.o: init.S
@@ -9,8 +9,8 @@ init.o: init.S
 
 %.elf: init.o  %.o
 	@echo "Combining object files $< to produce $@"
-	gcc -static $(CFLAGS) -Wl,-Bstatic,-T,cortexm1.ld,--build-id=none \
-		-mtune=cortex-m1 $^ -o $@
+	gcc -static $(CFLAGS) -Wl,-Bstatic,-T,cortexm3.ld,--build-id=none \
+		-mtune=cortex-m3 $^ -o $@
 
 %.o: %.c
 	@echo "Building object file $@ for $<"

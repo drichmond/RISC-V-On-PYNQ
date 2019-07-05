@@ -31,10 +31,10 @@
 ###############################################################################
 BUILD_PATH=../../
 BOARD_PATH=$(BUILD_PATH)
-IP_PATH=../../../cortexm1/
+IP_PATH=../../../cortexm3/vivado/
 BOARD=PYNQ-Z1
 PART=xc7z020clg400-1
-DESIGN=cortexm1
+DESIGN=cortexm3
 IPS=
 
 include $(BUILD_PATH)/build.mk
