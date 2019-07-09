@@ -152,7 +152,7 @@ proc create_hier_cell_cortexm3_1 { parentCell nameHier } {
   # Create instance: itcmSelConst, and set properties
   set itcmSelConst [ create_bd_cell -type ip -vlnv xilinx.com:ip:xlconstant:1.1 itcmSelConst ]
   set_property -dict [ list \
-   CONFIG.CONST_VAL {0} \
+   CONFIG.CONST_VAL {2} \
    CONFIG.CONST_WIDTH {2} \
  ] $itcmSelConst
 

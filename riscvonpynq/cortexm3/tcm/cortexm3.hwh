@@ -1,5 +1,5 @@
 ﻿<?xml version="1.0" encoding="UTF-8" standalone="no" ?>
-<EDKSYSTEM EDWVERSION="1.2" TIMESTAMP="Fri Jul  5 14:34:26 2019" VIVADOVERSION="2017.4">
+<EDKSYSTEM EDWVERSION="1.2" TIMESTAMP="Tue Jul  9 11:05:46 2019" VIVADOVERSION="2017.4">
 
   <SYSTEMINFO ARCH="zynq" DEVICE="7z020" NAME="cortexm3" PACKAGE="clg400" SPEEDGRADE="-1"/>
 
@@ -91,7 +91,7 @@
   <MODULES>
     <MODULE FULLNAME="/cortexm3/cortexm3" HWVERSION="1.0" INSTANCE="cortexm3_cortexm3" IPTYPE="PROCESSOR" IS_ENABLE="1" MODCLASS="PROCESSOR" MODTYPE="CORTEXM3_AXI" PROCTYPE="CORTEXM3_AXI" VLNV="Arm.com:CortexM:CORTEXM3_AXI:1.0">
       <DOCUMENTS>
-        <DOCUMENT SOURCE="/home/drichmond/Research/repositories/git/RISC-V-On-PYNQ-Microblaze/cortexm3/vivado/Arm_ipi_repository/CM3DbgAXI/docs/arm_cortexm3_processor_trm_100165_0201_00_en.pdf"/>
+        <DOCUMENT SOURCE="/home/drichmond/Research/repositories/git/RISC-V-On-PYNQ/cortexm3/vivado/Arm_ipi_repository/CM3DbgAXI/docs/arm_cortexm3_processor_trm_100165_0201_00_en.pdf"/>
       </DOCUMENTS>
       <PARAMETERS>
         <PARAMETER NAME="NUM_IRQ" VALUE="1"/>
@@ -634,7 +634,7 @@
       <DOCUMENTS/>
       <PARAMETERS>
         <PARAMETER NAME="CONST_WIDTH" VALUE="2"/>
-        <PARAMETER NAME="CONST_VAL" VALUE="0x0"/>
+        <PARAMETER NAME="CONST_VAL" VALUE="0x2"/>
         <PARAMETER NAME="Component_Name" VALUE="cortexm3_itcmSelConst_0"/>
         <PARAMETER NAME="EDK_IPTYPE" VALUE="PERIPHERAL"/>
       </PARAMETERS>
