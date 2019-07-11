@@ -1225,22 +1225,13 @@ proc create_root_design { parentCell } {
   connect_bd_net -net FCLK_CLK0 [get_bd_pins cortexm3/s_axi_aclk] [get_bd_pins irqAxiInterconnect/ACLK] [get_bd_pins irqAxiInterconnect/M00_ACLK] [get_bd_pins irqAxiInterconnect/S00_ACLK] [get_bd_pins porReset/slowest_sync_clk] [get_bd_pins processing_system7_0/FCLK_CLK0] [get_bd_pins processing_system7_0/M_AXI_GP0_ACLK] [get_bd_pins processing_system7_0/M_AXI_GP1_ACLK] [get_bd_pins psAxiInterconnect/ACLK] [get_bd_pins psAxiInterconnect/M00_ACLK] [get_bd_pins psAxiInterconnect/M01_ACLK] [get_bd_pins psAxiInterconnect/S00_ACLK] [get_bd_pins psInterruptController/s_axi_aclk] [get_bd_pins subprocessorClk/clk_in1] [get_bd_pins subprocessorClk/s_axi_aclk]
   connect_bd_net -net FCLK_CLK1 [get_bd_pins processing_system7_0/FCLK_CLK1] [get_bd_pins processing_system7_0/S_AXI_HP2_ACLK]
   connect_bd_net -net S00_ARESETN_1 [get_bd_pins cortexm3/s_axi_aresetn] [get_bd_pins irqAxiInterconnect/M00_ARESETN] [get_bd_pins irqAxiInterconnect/S00_ARESETN] [get_bd_pins porReset/peripheral_aresetn] [get_bd_pins psAxiInterconnect/M00_ARESETN] [get_bd_pins psAxiInterconnect/M01_ARESETN] [get_bd_pins psAxiInterconnect/S00_ARESETN] [get_bd_pins psInterruptController/s_axi_aresetn] [get_bd_pins subprocessorClk/s_axi_aresetn]
-  set_property -dict [ list \
-HDL_ATTRIBUTE.DEBUG {true} \
- ] [get_bd_nets S00_ARESETN_1]
   connect_bd_net -net S01_ARESETN_1 [get_bd_pins cortexm3/m_axi_aresetn] [get_bd_pins irqAxiInterconnect/S01_ARESETN]
   connect_bd_net -net irq [get_bd_pins cortexm3/irq] [get_bd_pins irqConcat/In0]
   connect_bd_net -net porReset_interconnect_aresetn [get_bd_pins irqAxiInterconnect/ARESETN] [get_bd_pins porReset/interconnect_aresetn] [get_bd_pins psAxiInterconnect/ARESETN]
   connect_bd_net -net por_resetn [get_bd_pins cortexm3/por_resetn] [get_bd_pins porReset/ext_reset_in] [get_bd_pins processing_system7_0/FCLK_RESET0_N]
-  set_property -dict [ list \
-HDL_ATTRIBUTE.DEBUG {true} \
- ] [get_bd_nets por_resetn]
   connect_bd_net -net processing_system7_0_GPIO_O [get_bd_pins processing_system7_0/GPIO_O] [get_bd_pins resetSlice/Din]
   connect_bd_net -net psirq [get_bd_pins processing_system7_0/IRQ_F2P] [get_bd_pins psInterruptController/irq]
   connect_bd_net -net riscv_resetn [get_bd_pins cortexm3/riscv_resetn] [get_bd_pins resetSlice/Dout]
-  set_property -dict [ list \
-HDL_ATTRIBUTE.DEBUG {true} \
- ] [get_bd_nets riscv_resetn]
   connect_bd_net -net subprocessorClk [get_bd_pins cortexm3/riscv_clk] [get_bd_pins processing_system7_0/S_AXI_HP0_ACLK] [get_bd_pins subprocessorClk/clk_out1]
   connect_bd_net -net tutorialProcessor_clock [get_bd_pins cortexm3/m_axi_aclk] [get_bd_pins irqAxiInterconnect/S01_ACLK]
   connect_bd_net -net xlconcat_0_dout [get_bd_pins irqConcat/dout] [get_bd_pins psInterruptController/intr]
