@@ -259,11 +259,11 @@ class Processor(pynq.DefaultHierarchy):
 
         argc = len(self.__arg_bufs)
         argv = self.__argv_ptr
-        self._mem.write(self._stkidx - 4, argc)
+        self._mem.write(self._stkidx, argc)
         try:
-            self._mem.write(self._stkidx - 8, argv)
+            self._mem.write(self._stkidx + 4, argv)
         except ValueError:
-            self._mem.write(self._stkidx - 8, int(argv))
+            self._mem.write(self._stkidx + 4, int(argv))
         self.__loaded = True
 
     def land(self):

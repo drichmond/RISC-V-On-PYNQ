@@ -12,13 +12,17 @@ void handler_reset(void)
 {
   int retval;
   unsigned long *destination;
+  int argc;
+  char ** argv;
   // default zero to undefined variables
   for (destination = &_bss_begin; destination < &_bss_end;)
     {
       *(destination++) = 0;
     }
   // starting main program
-  retval = main();
+  argc = *(&_stack_end);
+  argv = *(&_stack_end + 1);
+  retval = main(argc, argv);
   end_program(retval);
 }
 
