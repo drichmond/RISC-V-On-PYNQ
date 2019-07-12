@@ -33,7 +33,7 @@ class Processor(BramProcessor):
     build files for this processor. The relative path can be modified
     in __get_path.
     """
-    _name = 'cortexm1'
+    _name = 'processor'
     _proc = 'cortexm1'
     _reset_name = 'riscv_resetn'
     _bits = 32
